@@ -116,15 +116,68 @@ a:hover { color: var(--gold-bright); }
 .ascii-wrap { width: 100%; max-width: 100%; overflow: hidden; display: flex; justify-content: center; }
 .ascii { font-family: var(--font-mono); white-space: pre; max-width: 100%; }
 
+/* ============================================================
+   ASCII ART COLORIDA
+   Gradiente aplicado às letras via background-clip: text.
+   Cada peça tem seu clima: dragão = fogo, castelo = ouro,
+   portão = pedra fria. Gradientes animados dão vida.
+   ============================================================ */
+.art-dragon, .art-castle, .art-gate-big {
+  font-weight: 700;
+  line-height: 1.05;
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Dragão — fogo vivo, gradiente que pulsa */
+.art-dragon {
+  font-size: clamp(.34rem, 1.35vw, .72rem);
+  background-image: linear-gradient(135deg,
+    #fff3b0 0%, #ffcf3f 20%, #ff7a18 42%, #e8470f 62%, #c21807 80%, #ffcf3f 100%);
+  filter: drop-shadow(0 0 10px rgba(255,120,24,.45));
+  animation: fireFlow 6s ease-in-out infinite;
+}
+@keyframes fireFlow {
+  0%,100% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(255,120,24,.4)); }
+  50%     { background-position: 100% 50%; filter: drop-shadow(0 0 16px rgba(255,80,10,.7)); }
+}
+
+/* Castelo — ouro e pedra */
+.art-castle {
+  font-size: clamp(.6rem, 1.6vw, .95rem);
+  background-image: linear-gradient(160deg, #f0d060 0%, #c9a227 35%, #8a6d3b 70%, #e8dcc0 100%);
+  filter: drop-shadow(0 0 8px rgba(201,162,39,.4));
+  animation: goldFlow 8s ease-in-out infinite;
+}
+@keyframes goldFlow { 0%,100%{ background-position:0% 50% } 50%{ background-position:100% 50% } }
+
+/* Grande portão — pedra fria azulada (aurora) */
+.art-gate-big {
+  font-size: clamp(.4rem, 1.25vw, .72rem);
+  background-image: linear-gradient(135deg, #cfe8ff 0%, #7fb2e8 28%, #4a7fc9 52%, #9b8cff 74%, #cfe8ff 100%);
+  filter: drop-shadow(0 0 10px rgba(123,178,232,.4));
+  animation: auroraFlow 10s linear infinite;
+  margin-bottom: 34px;
+}
+@keyframes auroraFlow { 0%{ background-position:0% 0% } 100%{ background-position:200% 100% } }
+
+.dragon-wrap { position: absolute; top: 14%; left: 0; right: 0; z-index: 1; opacity: .9; }
+
 /* ===================== Hero / A Estrada ===================== */
 .chapter-hero { text-align: center; overflow: hidden; }
 .parallax { position: absolute; left: 0; right: 0; display: flex; justify-content: center; pointer-events: none; z-index: 0; overflow: hidden; }
-.parallax-sky { top: 10%; opacity: .55; }
-.parallax-peaks { bottom: 6%; opacity: .45; }
+.parallax-sky { top: 8%; opacity: .55; }
 .stars { color: var(--gold-bright); font-size: clamp(.5rem,1.6vw,.9rem); letter-spacing: 2px; }
-.peaks { color: #2a2416; font-size: clamp(.5rem,1.6vw,.9rem); line-height: 1.05; }
 
-.hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.hero-inner { position: relative; z-index: 3; max-width: 760px; margin: 0 auto; }
+/* fundo escuro suave atrás do texto do hero, para legibilidade sobre o dragão */
+.hero-inner::before {
+  content: ""; position: absolute; inset: -30px -40px; z-index: -1;
+  background: radial-gradient(60% 70% at 50% 50%, rgba(8,6,4,.78), transparent 75%);
+}
 .hero-title {
   font-family: var(--font-head); font-weight: 900;
   font-size: clamp(2.6rem, 10vw, 6rem); color: var(--ink);
@@ -159,9 +212,7 @@ a:hover { color: var(--gold-bright); }
 .chapter-intro { text-align: center; color: var(--ink-soft); margin: -28px auto 40px; max-width: 600px; }
 
 /* ===================== Limiar ===================== */
-.portal-layout { display: grid; grid-template-columns: 300px 1fr; gap: 50px; align-items: center; }
-.ascii-gate { color: var(--gold); font-size: clamp(.6rem,1.5vw,.95rem); line-height: 1.15; text-shadow: 0 0 16px rgba(201,162,39,.45); text-align: center; animation: gateGlow 4s ease-in-out infinite; }
-@keyframes gateGlow { 0%,100%{ text-shadow: 0 0 14px rgba(201,162,39,.35) } 50%{ text-shadow: 0 0 26px rgba(201,162,39,.7) } }
+.portal-layout { display: grid; grid-template-columns: 320px 1fr; gap: 50px; align-items: center; }
 .portal-text p { margin-bottom: 16px; }
 .portal-text strong { color: var(--gold); }
 .facts { list-style: none; margin-top: 12px; }
