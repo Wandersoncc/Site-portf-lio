@@ -147,10 +147,13 @@ a:hover { color: var(--gold-bright); }
 
 /* Castelo — ouro e pedra */
 .art-castle {
-  font-size: clamp(.6rem, 1.6vw, .95rem);
-  background-image: linear-gradient(160deg, #f0d060 0%, #c9a227 35%, #8a6d3b 70%, #e8dcc0 100%);
-  filter: drop-shadow(0 0 8px rgba(201,162,39,.4));
-  animation: goldFlow 8s ease-in-out infinite;
+  font-size: clamp(.5rem, 1.5vw, .86rem);
+  /* topo: pedra ao sol; base: rocha com musgo e sombra */
+  background-image: linear-gradient(170deg,
+    #fff2c2 0%, #e8dcc0 18%, #c9a227 34%, #8a6d3b 52%,
+    #5f6b3a 68%, #3f4a2a 82%, #2a2416 100%);
+  filter: drop-shadow(0 0 10px rgba(201,162,39,.35));
+  animation: goldFlow 9s ease-in-out infinite;
 }
 @keyframes goldFlow { 0%,100%{ background-position:0% 50% } 50%{ background-position:100% 50% } }
 
