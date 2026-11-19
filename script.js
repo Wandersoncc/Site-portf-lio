@@ -149,23 +149,6 @@ if (!prefersReduced) {
 }
 
 /* ============================================================
-   TILT 3D + reflexo nos cards do Arsenal
-   ============================================================ */
-if (!prefersReduced) {
-  document.querySelectorAll('.relic.tilt').forEach(card => {
-    const sheen = card.querySelector('.relic-sheen');
-    card.addEventListener('pointermove', (e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      card.style.transform = `perspective(800px) rotateX(${(0.5 - py) * 8}deg) rotateY(${(px - 0.5) * 8}deg) translateY(-6px)`;
-      if (sheen) { sheen.style.setProperty('--mx', px * 100 + '%'); sheen.style.setProperty('--my', py * 100 + '%'); }
-    });
-    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
-  });
-}
-
-/* ============================================================
    REVEAL + barras de skill + contador de porcentagem
    ============================================================ */
 const revealTargets = document.querySelectorAll(
@@ -256,6 +239,169 @@ form.addEventListener('submit', (e) => {
       ctx.beginPath(); ctx.fillStyle = `rgba(${light},${alpha.toFixed(2)})`;
       ctx.shadowBlur = 10; ctx.shadowColor = `rgba(${light},0.8)`;
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.shadowBlur = 0; requestAnimationFrame(tick);
+  }
+  window.addEventListener('resize', resize); resize(); tick();
+})();
+
+/* ============================================================
+   NOVAS INTERAÇÕES E ELEMENTOS VISUAIS
+   ============================================================ */
+
+/* ---------- Preloader: abre os portões ---------- */
+(function preloader() {
+  const pre = document.getElementById('preloader');
+  if (!pre) return;
+  if (prefersReduced) { pre.style.display = 'none'; return; }
+  const open = () => { pre.classList.add('done'); setTimeout(() => pre.remove(), 1300); };
+  if (document.readyState === 'complete') setTimeout(open, 600);
+  else window.addEventListener('load', () => setTimeout(open, 600));
+  // garante remoção mesmo se 'load' demorar
+  setTimeout(open, 3500);
+})();
+
+/* ---------- Spotlight que segue o mouse ---------- */
+const spotlight = document.getElementById('spotlight');
+if (spotlight && !prefersReduced) {
+  window.addEventListener('pointermove', (e) => {
+    spotlight.style.setProperty('--sx', e.clientX + 'px');
+    spotlight.style.setProperty('--sy', e.clientY + 'px');
+  }, { passive: true });
+}
+
+/* ---------- HUD: nível e XP conforme a rolagem ---------- */
+const hud = document.getElementById('hud');
+const hudXp = document.getElementById('hudXp');
+const hudLvl = document.getElementById('hudLvl');
+function updateHud() {
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);   // 0..1
+  if (hud) hud.classList.toggle('visible', h.scrollTop > 120);
+  const level = Math.min(5, Math.floor(p * 5) + 1);
+  const within = (p * 5) % 1;                                        // progresso no nível
+  if (hudXp) hudXp.style.width = (within * 100).toFixed(0) + '%';
+  if (hudLvl) hudLvl.textContent = 'Nv ' + level;
+}
+window.addEventListener('scroll', updateHud, { passive: true });
+updateHud();
+
+/* ---------- Cards que viram (clique/toque/teclado) ---------- */
+document.querySelectorAll('.relic').forEach(card => {
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); }
+  });
+});
+
+/* ---------- Dragão interativo: faíscas + rugido ---------- */
+function spawnSpark(x, y) {
+  const s = document.createElement('div');
+  s.className = 'spark';
+  s.style.left = x + 'px'; s.style.top = y + 'px';
+  document.body.appendChild(s);
+  const ang = Math.random() * Math.PI * 2;
+  const dist = 20 + Math.random() * 50;
+  const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 30;
+  s.animate([
+    { transform: 'translate(0,0) scale(1)', opacity: 1 },
+    { transform: `translate(${dx}px,${dy}px) scale(0)`, opacity: 0 }
+  ], { duration: 600 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.2,1)' })
+   .onfinish = () => s.remove();
+}
+const dragonWrap = document.querySelector('.dragon-wrap');
+const artDragon = document.getElementById('artDragon');
+if (dragonWrap && !prefersReduced) {
+  let last = 0;
+  dragonWrap.addEventListener('pointermove', (e) => {
+    const now = Date.now();
+    if (now - last > 60) { spawnSpark(e.clientX, e.clientY); last = now; }
+  });
+  dragonWrap.addEventListener('click', (e) => {
+    if (artDragon) { artDragon.classList.remove('roar'); void artDragon.offsetWidth; artDragon.classList.add('roar'); }
+    for (let i = 0; i < 16; i++) setTimeout(() => spawnSpark(e.clientX + (Math.random()-.5)*60, e.clientY + (Math.random()-.5)*40), i * 20);
+    unlock('Dragão Desperto', 'Tu acordaste a besta adormecida');
+  });
+}
+
+/* ---------- Toast de conquista ---------- */
+const toast = document.getElementById('toast');
+const toastTitle = document.getElementById('toastTitle');
+const toastSub = document.getElementById('toastSub');
+const unlocked = new Set();
+let toastTimer;
+function unlock(title, sub) {
+  if (!toast || unlocked.has(title)) return;
+  unlocked.add(title);
+  toastTitle.textContent = title;
+  toastSub.textContent = sub || '';
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+}
+// conquista ao chegar em cada capítulo
+const chapterAchievements = {
+  limiar:  ['Limiar Cruzado', 'Deste o primeiro passo'],
+  descida: ['Nas Profundezas', 'Desceste à caverna do saber'],
+  arsenal: ['Guardião do Arsenal', 'Encontraste as relíquias'],
+  bosque:  ['Sábio do Bosque', 'Colheste o conhecimento'],
+  portao:  ['Fim da Estrada', 'Chegaste ao Grande Portão']
+};
+document.querySelectorAll('.chapter[id]').forEach(c => {
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && chapterAchievements[e.target.id]) {
+        const [t, s] = chapterAchievements[e.target.id];
+        unlock(t, s);
+      }
+    });
+  }, { threshold: 0.55 }).observe(c);
+});
+
+/* ---------- Botão voltar ao topo ---------- */
+const toTop = document.getElementById('toTop');
+if (toTop) {
+  window.addEventListener('scroll', () => toTop.classList.toggle('visible', window.scrollY > 600), { passive: true });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' }));
+}
+
+/* ---------- Easter egg: Konami Code → modo dragão ---------- */
+const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let kseq = [];
+window.addEventListener('keydown', (e) => {
+  kseq.push(e.key); kseq = kseq.slice(-KONAMI.length);
+  if (KONAMI.every((k, i) => k === kseq[i])) {
+    document.body.classList.toggle('dragon-mode');
+    unlock('Código Secreto!', 'Modo Dragão ' + (document.body.classList.contains('dragon-mode') ? 'ativado' : 'desativado'));
+  }
+});
+
+/* ---------- Poeira dourada flutuante (canvas) ---------- */
+(function dust() {
+  if (prefersReduced) return;
+  const canvas = document.getElementById('dust');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, motes;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    motes = Array.from({ length: Math.min(50, Math.floor(w / 30)) }, () => ({
+      x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.4+0.4,
+      vx: (Math.random()-0.5)*0.25, vy: (Math.random()-0.5)*0.25,
+      a: Math.random()*0.5+0.2, tw: Math.random()*Math.PI*2
+    }));
+  }
+  function tick() {
+    ctx.clearRect(0,0,w,h);
+    for (const m of motes) {
+      m.x += m.vx; m.y += m.vy; m.tw += 0.03;
+      if (m.x < 0) m.x = w; if (m.x > w) m.x = 0;
+      if (m.y < 0) m.y = h; if (m.y > h) m.y = 0;
+      const alpha = (m.a + Math.sin(m.tw)*0.2).toFixed(2);
+      ctx.beginPath(); ctx.fillStyle = `rgba(240,208,96,${alpha})`;
+      ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(240,208,96,.6)';
+      ctx.arc(m.x, m.y, m.r, 0, Math.PI*2); ctx.fill();
     }
     ctx.shadowBlur = 0; requestAnimationFrame(tick);
   }
