@@ -302,17 +302,16 @@ function spawnSpark(x, y) {
   ], { duration: 600 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.2,1)' })
    .onfinish = () => s.remove();
 }
-const dragonWrap = document.querySelector('.dragon-wrap');
-const artDragon = document.getElementById('artDragon');
-if (dragonWrap && !prefersReduced) {
+const dragonScene = document.querySelector('.scene-dragon');
+if (dragonScene && !prefersReduced) {
+  dragonScene.style.pointerEvents = 'auto';
   let last = 0;
-  dragonWrap.addEventListener('pointermove', (e) => {
+  dragonScene.addEventListener('pointermove', (e) => {
     const now = Date.now();
-    if (now - last > 60) { spawnSpark(e.clientX, e.clientY); last = now; }
+    if (now - last > 50) { spawnSpark(e.clientX, e.clientY); last = now; }
   });
-  dragonWrap.addEventListener('click', (e) => {
-    if (artDragon) { artDragon.classList.remove('roar'); void artDragon.offsetWidth; artDragon.classList.add('roar'); }
-    for (let i = 0; i < 16; i++) setTimeout(() => spawnSpark(e.clientX + (Math.random()-.5)*60, e.clientY + (Math.random()-.5)*40), i * 20);
+  dragonScene.addEventListener('click', (e) => {
+    for (let i = 0; i < 20; i++) setTimeout(() => spawnSpark(e.clientX + (Math.random()-.5)*80, e.clientY + (Math.random()-.5)*50), i * 18);
     unlock('Dragão Desperto', 'Tu acordaste a besta adormecida');
   });
 }
@@ -399,4 +398,33 @@ window.addEventListener('keydown', (e) => {
     ctx.shadowBlur = 0; requestAnimationFrame(tick);
   }
   window.addEventListener('resize', resize); resize(); tick();
+})();
+
+/* ============================================================
+   CENAS ASCII — ajusta o tamanho da fonte para preencher a
+   largura do contêiner (sem rolagem horizontal, responsivo)
+   ============================================================ */
+(function fitScenes() {
+  const scenes = document.querySelectorAll('.ascii-scene');
+  if (!scenes.length) return;
+  const CHAR_W = 0.60;   // largura do glifo monospace ≈ 0.6em
+
+  function fit() {
+    scenes.forEach(pre => {
+      const text = pre.textContent;
+      let cols = 0;
+      for (const line of text.split('\n')) if (line.length > cols) cols = line.length;
+      if (!cols) return;
+      const parent = pre.parentElement;              // .scene
+      const w = parent.clientWidth;
+      // fonte que faz (cols * CHAR_W * fonte) == largura
+      const fs = w / (cols * CHAR_W);
+      pre.style.fontSize = fs + 'px';
+    });
+  }
+  fit();
+  window.addEventListener('resize', fit, { passive: true });
+  // refaz após as fontes carregarem (monospace pode mudar métrica)
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener('load', fit);
 })();
