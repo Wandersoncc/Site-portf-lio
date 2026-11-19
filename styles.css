@@ -132,14 +132,16 @@ a:hover { color: var(--gold-bright); }
   color: transparent;
 }
 
-/* Dragão — fogo vivo, gradiente que pulsa */
+/* Dragão — cabeça densa, escamas em fogo vivo */
 .art-dragon {
-  font-size: clamp(.34rem, 1.35vw, .72rem);
+  font-size: clamp(.46rem, 1.5vw, .9rem);
+  line-height: 1.02;
   background-image: linear-gradient(135deg,
     #fff3b0 0%, #ffcf3f 20%, #ff7a18 42%, #e8470f 62%, #c21807 80%, #ffcf3f 100%);
   filter: drop-shadow(0 0 10px rgba(255,120,24,.45));
   animation: fireFlow 6s ease-in-out infinite;
 }
+/* olhos que brilham sobre a cabeça do dragão */
 @keyframes fireFlow {
   0%,100% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(255,120,24,.4)); }
   50%     { background-position: 100% 50%; filter: drop-shadow(0 0 16px rgba(255,80,10,.7)); }
@@ -167,7 +169,7 @@ a:hover { color: var(--gold-bright); }
 }
 @keyframes auroraFlow { 0%{ background-position:0% 0% } 100%{ background-position:200% 100% } }
 
-.dragon-wrap { position: absolute; top: 14%; left: 0; right: 0; z-index: 1; opacity: .9; }
+.dragon-wrap { position: absolute; top: 9%; left: 0; right: 0; z-index: 1; opacity: .95; }
 
 /* Título gigante da jornada (FIGlet) — ouro vivo, gradiente que corre */
 .art-title {
