@@ -302,9 +302,8 @@ function spawnSpark(x, y) {
   ], { duration: 600 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.2,1)' })
    .onfinish = () => s.remove();
 }
-const dragonScene = document.querySelector('.scene-dragon');
+const dragonScene = document.querySelector('.scene-band-dragon');
 if (dragonScene && !prefersReduced) {
-  dragonScene.style.pointerEvents = 'auto';
   let last = 0;
   dragonScene.addEventListener('pointermove', (e) => {
     const now = Date.now();
@@ -404,27 +403,46 @@ window.addEventListener('keydown', (e) => {
    CENAS ASCII — ajusta o tamanho da fonte para preencher a
    largura do contêiner (sem rolagem horizontal, responsivo)
    ============================================================ */
-(function fitScenes() {
-  const scenes = document.querySelectorAll('.ascii-scene');
-  if (!scenes.length) return;
+(function sceneBands() {
+  const bands = document.querySelectorAll('.scene-band');
+  if (!bands.length) return;
   const CHAR_W = 0.60;   // largura do glifo monospace ≈ 0.6em
 
-  function fit() {
-    scenes.forEach(pre => {
-      const text = pre.textContent;
-      let cols = 0;
-      for (const line of text.split('\n')) if (line.length > cols) cols = line.length;
-      if (!cols) return;
-      const parent = pre.parentElement;              // .scene
-      const w = parent.clientWidth;
-      // fonte que faz (cols * CHAR_W * fonte) == largura
-      const fs = w / (cols * CHAR_W);
-      pre.style.fontSize = fs + 'px';
-    });
+  function fit(pre) {
+    const cols = pre.dataset.cols | 0;
+    if (!cols) return;
+    const w = pre.parentElement.clientWidth;        // = 100vw
+    pre.style.fontSize = (w / (cols * CHAR_W)) + 'px';
   }
-  fit();
-  window.addEventListener('resize', fit, { passive: true });
-  // refaz após as fontes carregarem (monospace pode mudar métrica)
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  window.addEventListener('load', fit);
+
+  function fitAll() { bands.forEach(b => { const p = b.querySelector('.ascii-scene'); if (p.dataset.cols) fit(p); }); }
+
+  // carrega cada fragmento colorido sob demanda ao se aproximar da viewport
+  const loadObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const band = entry.target;
+      obs.unobserve(band);
+      const pre = band.querySelector('.ascii-scene');
+      fetch(band.dataset.scene)
+        .then(r => r.ok ? r.text() : Promise.reject(r.status))
+        .then(htmlFrag => {
+          pre.innerHTML = htmlFrag;
+          // conta colunas pela maior linha (sem contar as tags)
+          let cols = 0;
+          htmlFrag.split('\n').forEach(line => {
+            const plain = line.replace(/<[^>]*>/g, '');
+            if (plain.length > cols) cols = plain.length;
+          });
+          pre.dataset.cols = cols;
+          fit(pre);
+          band.classList.add('loaded');
+        })
+        .catch(() => { band.style.display = 'none'; });   // falha silenciosa
+    });
+  }, { rootMargin: '300px 0px' });
+
+  bands.forEach(b => loadObserver.observe(b));
+  window.addEventListener('resize', fitAll, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
 })();
