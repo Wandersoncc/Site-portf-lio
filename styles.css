@@ -166,26 +166,33 @@ a:hover { color: var(--gold-bright); }
 
 .dragon-wrap { position: absolute; top: 14%; left: 0; right: 0; z-index: 1; opacity: .9; }
 
+/* Título gigante da jornada (FIGlet) — ouro vivo, gradiente que corre */
+.art-title {
+  font-weight: 700; line-height: 1.02;
+  font-size: clamp(.42rem, 1.7vw, 1rem);
+  background-image: linear-gradient(110deg, #fff6c8 0%, #ffcf3f 22%, #c9a227 45%, #f0d060 60%, #ffcf3f 78%, #fff6c8 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 16px rgba(201,162,39,.5));
+  animation: titleFlow 5s linear infinite;
+}
+@keyframes titleFlow { to { background-position: 250% 0; } }
+.hero-title { margin-bottom: 14px; }
+
 /* ===================== Hero / A Estrada ===================== */
 .chapter-hero { text-align: center; overflow: hidden; }
 .parallax { position: absolute; left: 0; right: 0; display: flex; justify-content: center; pointer-events: none; z-index: 0; overflow: hidden; }
 .parallax-sky { top: 8%; opacity: .55; }
 .stars { color: var(--gold-bright); font-size: clamp(.5rem,1.6vw,.9rem); letter-spacing: 2px; }
 
-.hero-inner { position: relative; z-index: 3; max-width: 760px; margin: 0 auto; }
+.hero-inner { position: relative; z-index: 3; max-width: 880px; margin: 0 auto; }
 /* fundo escuro suave atrás do texto do hero, para legibilidade sobre o dragão */
 .hero-inner::before {
   content: ""; position: absolute; inset: -30px -40px; z-index: -1;
   background: radial-gradient(60% 70% at 50% 50%, rgba(8,6,4,.78), transparent 75%);
 }
-.hero-title {
-  font-family: var(--font-head); font-weight: 900;
-  font-size: clamp(2.6rem, 10vw, 6rem); color: var(--ink);
-  letter-spacing: 4px; margin-bottom: 14px; line-height: 1;
-}
-.hero-title span { display: inline-block; opacity: 0; transform: translateY(20px); text-shadow: 0 0 30px rgba(201,162,39,.5); }
-.hero-title span.lit { animation: lightUp .6s forwards; }
-@keyframes lightUp { to { opacity: 1; transform: translateY(0); } }
+.hero-title { margin: 0 0 14px; }
 .hero-kicker { font-family: var(--font-deco); color: var(--ember); letter-spacing: 2px; font-size: 1.05rem; margin-bottom: 22px; }
 .hero-sub { color: var(--ink-soft); font-size: 1.15rem; max-width: 600px; margin: 0 auto 30px; min-height: 3.4em; }
 .hero-sub strong { color: var(--gold); }
@@ -240,7 +247,18 @@ a:hover { color: var(--gold-bright); }
 /* reflexo que segue o mouse */
 .relic-sheen { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(240,208,96,.14), transparent 45%); }
 .relic:hover .relic-sheen { opacity: 1; }
-.relic-art { font-family: var(--font-mono); color: var(--gold); font-size: clamp(.62rem,1.6vw,.8rem); line-height: 1.1; margin-bottom: 14px; min-height: 92px; text-shadow: 0 0 10px rgba(201,162,39,.35); text-align: center; }
+.relic-art {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: clamp(.6rem,1.5vw,.78rem); line-height: 1.08;
+  margin-bottom: 14px; min-height: 150px; text-align: center;
+  background-size: 200% 200%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: goldFlow 7s ease-in-out infinite;
+}
+.art-relic-shield { background-image: linear-gradient(140deg, #eaf2ff, #9fc3f0 40%, #4a7fc9 70%, #cfe0f5); filter: drop-shadow(0 0 8px rgba(127,178,232,.45)); }
+.art-relic-tome   { background-image: linear-gradient(140deg, #d6ffe6, #57d98a 40%, #1f9c5a 70%, #bff5d4); filter: drop-shadow(0 0 8px rgba(87,217,138,.4)); }
+.art-relic-crown  { background-image: linear-gradient(140deg, #fff6c8, #ffcf3f 40%, #c9a227 70%, #f0d060); filter: drop-shadow(0 0 10px rgba(255,207,63,.5)); }
 .relic h3 { font-family: var(--font-head); color: var(--ink); margin-bottom: 10px; }
 .relic p { color: var(--ink-soft); flex-grow: 1; margin-bottom: 16px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
@@ -301,7 +319,6 @@ a:hover { color: var(--gold-bright); }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
-  .hero-title span { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -339,25 +356,6 @@ a:hover { color: var(--gold-bright); }
   background: radial-gradient(240px circle at var(--sx,50%) var(--sy,50%), rgba(255,220,120,.07), transparent 70%);
   transition: background .1s;
 }
-
-/* ---------- Tochas laterais ---------- */
-.torch { position: fixed; top: 46%; z-index: 40; width: 26px; pointer-events: none; }
-.torch-left { left: 14px; }
-.torch-right { right: 14px; }
-.torch .stick { display: block; width: 6px; height: 70px; margin: 0 auto; background: linear-gradient(180deg, #6b4a24, #3a2713); border-radius: 3px; }
-.torch .flame {
-  display: block; width: 18px; height: 26px; margin: 0 auto -6px;
-  background: radial-gradient(circle at 50% 70%, #fff3b0, #ffcf3f 35%, #ff7a18 65%, #c21807 100%);
-  border-radius: 50% 50% 45% 45%; filter: blur(.5px);
-  box-shadow: 0 0 20px 6px rgba(255,120,24,.6), 0 0 40px 10px rgba(255,80,10,.35);
-  animation: flicker 160ms infinite alternate;
-  transform-origin: bottom center;
-}
-@keyframes flicker {
-  from { transform: scaleY(1) scaleX(1) translateY(0); opacity: .95; }
-  to   { transform: scaleY(1.14) scaleX(.92) translateY(-2px); opacity: 1; }
-}
-@media (max-width: 900px) { .torch { display: none; } }
 
 /* ---------- HUD de aventureiro (nível / XP) ---------- */
 .hud {

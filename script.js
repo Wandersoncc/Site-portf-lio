@@ -63,25 +63,18 @@ window.addEventListener('keydown', autoStartOnce);
 window.addEventListener('wheel', autoStartOnce, { passive: true });
 
 /* ============================================================
-   HERO — título acende letra a letra + typewriter
+   HERO — typewriter da frase de abertura
    ============================================================ */
-const letters = document.querySelectorAll('#heroTitle span');
-letters.forEach((s, i) => {
-  if (prefersReduced) { s.classList.add('lit'); return; }
-  setTimeout(() => s.classList.add('lit'), 250 + i * 110);
-});
-
 const typed = document.getElementById('typed');
 const PHRASE = ' Desce por ela e conhecerás a minha busca — algoritmos, lógica e teimosia.';
 if (prefersReduced) {
   typed.textContent = PHRASE;
 } else {
   let ci = 0;
-  const startDelay = 250 + letters.length * 110 + 300;
   setTimeout(function typeStep() {
     typed.textContent = PHRASE.slice(0, ci++);
     if (ci <= PHRASE.length) setTimeout(typeStep, 32);
-  }, startDelay);
+  }, 1400);   // começa após os portões abrirem
 }
 
 /* ============================================================

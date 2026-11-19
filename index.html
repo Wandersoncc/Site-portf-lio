@@ -29,10 +29,6 @@
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
-  <!-- Tochas nas laterais -->
-  <div class="torch torch-left" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
-  <div class="torch torch-right" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
-
   <!-- HUD de aventureiro (nível / XP sobe conforme rola) -->
   <div class="hud" id="hud" aria-hidden="true">
     <div class="hud-avatar">🧙</div>
@@ -99,8 +95,15 @@
     </div>
 
     <div class="hero-inner">
-      <h1 class="hero-title" id="heroTitle" aria-label="A Jornada de um Programador">
-        <span>A</span> <span>J</span><span>o</span><span>r</span><span>n</span><span>a</span><span>d</span><span>a</span>
+      <h1 class="hero-title" aria-label="A Jornada">
+        <div class="ascii-wrap">
+          <pre class="ascii art-title" id="heroTitle" aria-hidden="true"> █████╗          ██╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗  █████╗ 
+██╔══██╗         ██║██╔═══██╗██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
+███████║         ██║██║   ██║██████╔╝██╔██╗ ██║███████║██║  ██║███████║
+██╔══██║    ██   ██║██║   ██║██╔══██╗██║╚██╗██║██╔══██║██║  ██║██╔══██║
+██║  ██║    ╚█████╔╝╚██████╔╝██║  ██║██║ ╚████║██║  ██║██████╔╝██║  ██║
+╚═╝  ╚═╝     ╚════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝</pre>
+        </div>
       </h1>
       <p class="hero-kicker">de um estudante de Ciência da Computação</p>
       <p class="hero-sub">
@@ -223,14 +226,18 @@
           <div class="relic-face relic-front">
             <div class="relic-rarity rarity-common">⚙ comum</div>
             <div class="ascii-wrap">
-              <pre class="relic-art" aria-hidden="true">    ___
-  .'   '.
- / .---. \
- | | ⚙ | |
- \ '---' /
-  '.___.'
-   |≡≡≡|
-   '---'</pre>
+              <pre class="relic-art art-relic-shield" aria-hidden="true">   .-=======-.
+  (___________)
+  |\         /|
+  | \  /^\  / |
+  |  \ |·| /  |
+  |   \|·|/   |
+  |    \·/    |
+   \    V    /
+    \       /
+     \_____/
+       \ /
+        V</pre>
             </div>
             <h3>Primeiro Artefato</h3>
             <span class="relic-cta">virar ⟳</span>
@@ -249,14 +256,17 @@
           <div class="relic-face relic-front">
             <div class="relic-rarity rarity-rare">◆ raro</div>
             <div class="ascii-wrap">
-              <pre class="relic-art" aria-hidden="true">   .-""-.
-  /  __  \
- | (|##|) |
- |  |##|  |
-  \ |##| /
-   '.__.'
-  .-'""'-.
- '--------'</pre>
+              <pre class="relic-art art-relic-tome" aria-hidden="true">      ______
+   .-'      '-.
+  /   .----.   \
+ |   / ·  · \   |
+ |  |  ·  ·  |  |
+ |  |  ✶  ✶  |  |
+ |   \ ·  · /   |
+  \   '----'   /
+   '-.______.-'
+   |__________|
+   '==========' </pre>
             </div>
             <h3>Segundo Artefato</h3>
             <span class="relic-cta">virar ⟳</span>
@@ -275,13 +285,16 @@
           <div class="relic-face relic-front">
             <div class="relic-rarity rarity-legendary">★ lendário</div>
             <div class="ascii-wrap">
-              <pre class="relic-art" aria-hidden="true"> ________
- |\      \
- | \  ▦▦  \
- |  \______\
-  \  |     |
-   \ |  ▦  |
-    \|_____|</pre>
+              <pre class="relic-art art-relic-crown" aria-hidden="true">  \   /\   /
+   \ /  \ /
+ .-·V·--·V·-.
+ |  ·    ·  |
+ | ◇  ◇  ◇  |
+ |__________|
+  \        /
+   '-.__.-'
+    |····|
+    '----'</pre>
             </div>
             <h3>Terceiro Artefato</h3>
             <span class="relic-cta">virar ⟳</span>
