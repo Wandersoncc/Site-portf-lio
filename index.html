@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⚔ A Jornada · Portfólio de um Estudante da Terra-média ⚔</title>
-  <meta name="description" content="Portfólio de um estudante de Ciência da Computação em forma de jornada. Estética medieval, ASCII art densa e inspiração em O Senhor dos Anéis." />
+  <title>⚔ A Jornada · Portfólio de um Estudante de Ciência da Computação ⚔</title>
+  <meta name="description" content="Portfólio de um estudante de Ciência da Computação em forma de jornada. Estética medieval de fantasia, ASCII art e trilha sonora." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=MedievalSharp&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Fundo de brasas / névoa -->
+  <!-- Fundos animados -->
   <canvas id="embers" aria-hidden="true"></canvas>
+  <div class="shooting-star" id="shootingStar" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
   <!-- Barra de progresso da jornada -->
   <div class="journey-progress" aria-hidden="true"><i id="progressBar"></i></div>
@@ -27,98 +29,82 @@
     <button id="trackSwap" class="player-btn small" aria-label="Trocar de faixa" title="Trocar de faixa">⏭</button>
     <div class="player-meta">
       <span class="player-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span id="trackName" class="player-track">A Terra-média</span>
+      <span id="trackName" class="player-track">Canto da Estrada</span>
     </div>
     <audio id="bgAudio" loop preload="none"></audio>
   </div>
 
-  <!-- Menu discreto (meio-termo: aparece após o 1º capítulo) -->
+  <!-- Menu discreto que surge após o 1º capítulo -->
   <nav id="runeNav" class="rune-nav" aria-label="Capítulos da jornada">
-    <a href="#portal" title="O Portal de Durin"><span>☍</span><em>O Portal</em></a>
-    <a href="#moria" title="As Minas de Moria"><span>⛏</span><em>Moria</em></a>
-    <a href="#camara" title="A Câmara dos Artefatos"><span>⚒</span><em>Artefatos</em></a>
-    <a href="#lorien" title="Lothlórien"><span>❀</span><em>Lothlórien</em></a>
-    <a href="#portoes" title="Os Portões"><span>⛩</span><em>Contato</em></a>
+    <a href="#limiar" title="O Limiar"><span>⚜</span><em>O Limiar</em></a>
+    <a href="#descida" title="A Grande Descida"><span>⛏</span><em>A Descida</em></a>
+    <a href="#arsenal" title="O Arsenal"><span>⚒</span><em>O Arsenal</em></a>
+    <a href="#bosque" title="O Bosque dos Saberes"><span>❧</span><em>Saberes</em></a>
+    <a href="#portao" title="O Grande Portão"><span>⛩</span><em>Contato</em></a>
   </nav>
 
-  <!-- ============ CAPÍTULO 0 · A ESTRADA ============ -->
+  <!-- ============ A ESTRADA (hero) ============ -->
   <section id="estrada" class="chapter chapter-hero">
-    <div class="parallax parallax-sky" data-speed="0.15" aria-hidden="true">
-      <pre class="ascii stars">
- .      ·        .          *            ·       .        *      ·     .
-     *        ·      .            ·         *        .         ·
- .        *          .      ·          .        *        ·        .      *
-      </pre>
+    <div class="parallax parallax-sky" data-speed="0.12" aria-hidden="true">
+      <pre class="ascii stars">.   ·    *       ·   .      *        ·   .     *     ·      .    *   ·</pre>
     </div>
-    <div class="parallax parallax-peaks" data-speed="0.35" aria-hidden="true">
-      <pre class="ascii peaks">
-           /\                      /\          /\                /\
-          /  \        /\          /  \        /  \      /\      /  \
-         / /\ \      /  \   /\   / /\ \      / /\ \    /  \    / /\ \
-        / /  \ \    / /\ \ /  \ / /  \ \    / /  \ \  / /\ \  / /  \ \
-       /_/    \_\  /_/  \_/    \_/    \_\  /_/    \_\/_/  \_\/_/    \_\
-      </pre>
+    <div class="parallax parallax-peaks" data-speed="0.3" aria-hidden="true">
+      <pre class="ascii peaks">    /\      /\        /\    /\      /\        /\      /\    /\      /\
+   /  \    /  \  /\  /  \  /  \    /  \  /\  /  \    /  \  /  \    /  \
+  /    \  /    \/  \/    \/    \  /    \/  \/    \  /    \/    \  /    \</pre>
     </div>
 
     <div class="hero-inner">
-      <pre class="ascii-title" aria-hidden="true">
- ▄▄▄      ▄▄▄██▀▀▀ ▒█████   ██▀███   ███▄    █  ▄▄▄      ▓█████▄  ▄▄▄
-▒████▄      ▒██    ▒██▒  ██▒▓██ ▒ ██▒ ██ ▀█   █ ▒████▄    ▒██▀ ██▌▒████▄
-▒██  ▀█▄    ░██    ▒██░  ██▒▓██ ░▄█ ▒▓██  ▀█ ██▒▒██  ▀█▄  ░██   █▌▒██  ▀█▄
-░██▄▄▄▄██▓██▄██▓   ▒██   ██░▒██▀▀█▄  ▓██▒  ▐▌██▒░██▄▄▄▄██ ░▓█▄   ▌░██▄▄▄▄██
- ▓█   ▓██▒▓███▒    ░ ████▓▒░░██▓ ▒██▒▒██░   ▓██░ ▓█   ▓██▒░▒████▓  ▓█   ▓██▒
-      </pre>
-      <p class="hero-kicker">— uma jornada em código —</p>
-      <h1 class="hero-title">Nem todos os que vagueiam estão perdidos.</h1>
+      <h1 class="hero-title" id="heroTitle" aria-label="A Jornada de um Programador">
+        <span>A</span> <span>J</span><span>o</span><span>r</span><span>n</span><span>a</span><span>d</span><span>a</span>
+      </h1>
+      <p class="hero-kicker">de um estudante de Ciência da Computação</p>
       <p class="hero-sub">
-        Sou um <strong>estudante de Ciência da Computação</strong>. O que vês adiante
-        não é um currículo: é uma estrada. Desce por ela, viajante, e conhecerás a
-        minha busca — forjada em algoritmos, lógica e teimosia.
+        O que vês adiante não é um currículo — é uma <strong>estrada</strong>.
+        <span class="typed" id="typed"></span>
       </p>
-      <a href="#portal" class="btn btn-primary">Iniciar a Descida ⤓</a>
+      <a href="#limiar" class="btn btn-primary">Iniciar a Descida ⤓</a>
     </div>
 
     <div class="scroll-hint" aria-hidden="true">
-      <span>a estrada segue sempre em frente</span>
+      <span>a estrada segue adiante</span>
       <span class="chevrons">⌄ ⌄ ⌄</span>
     </div>
   </section>
 
-  <!-- ============ CAPÍTULO 1 · O PORTAL DE DURIN (sobre) ============ -->
-  <section id="portal" class="chapter">
+  <!-- ============ CAP. I · O LIMIAR (sobre) ============ -->
+  <section id="limiar" class="chapter">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo I</span>
-      <h2 class="chapter-title">O Portal de Durin</h2>
-      <p class="chapter-motto">“Fale, amigo, e entre.”</p>
+      <h2 class="chapter-title">O Limiar</h2>
+      <p class="chapter-motto">Toda grande jornada começa com um único passo.</p>
     </div>
 
     <div class="portal-layout">
-      <pre class="ascii ascii-gate" aria-hidden="true">
-        .-"""""""""-.
-      .'   * . *  .  '.
-     /  *   .---.   *   \
-    ;   .  / ╦╦╦ \  .    ;
-    |  *  | ╠╬╬╬ |   *   |
-    ;  .  | ╩╩╩  | .     ;
-     \  * '.___.' *     /
-      '. *  . * .  . .'
-        '-.........-'
-     ═╦═════════════╦═
-      ║  D   U   R  ║
-      ║  I   N   ·  ║
-     ═╩═════════════╩═
-      </pre>
+      <div class="ascii-wrap">
+        <pre class="ascii ascii-gate" aria-hidden="true">      .-"""-.
+    .'  * *  '.
+   /  .-"""-.  \
+  ;  /  ╦╦╦  \  ;
+  |  | ╠╬╬╬ |  |
+  ;  \  ╩╩╩  /  ;
+   \  '-...-'  /
+    '.  * *  .'
+      '-...-'
+   ═╦═════════╦═
+    ║  ·   ·  ║
+   ═╩═════════╩═</pre>
+      </div>
       <div class="portal-text">
         <p>
-          Toda jornada tem um limiar. Para atravessar o meu, basta uma palavra:
-          <strong>curiosidade</strong>. Foi ela que me levou a querer entender como
-          as máquinas pensam, e é ela que me mantém cavando mais fundo.
+          Minha jornada começou com uma pergunta simples: <strong>como as máquinas
+          pensam?</strong> Essa curiosidade virou o fio que me puxa para frente a
+          cada desafio.
         </p>
         <p>
           Estudo <strong>Ciência da Computação</strong> — a arte de domar a lógica.
-          Gosto de código limpo como pergaminho bem escrito, de sistemas firmes
-          como as muralhas de Minas Tirith, e de aprender com cada abismo que a
-          estrada me apresenta.
+          Gosto de código limpo como pergaminho bem escrito, de sistemas firmes como
+          muralhas de pedra, e de aprender com cada abismo que a estrada apresenta.
         </p>
         <ul class="facts">
           <li><span>⚔</span> Caçador de bugs e resolvedor de enigmas</li>
@@ -129,50 +115,43 @@
     </div>
   </section>
 
-  <!-- ============ CAPÍTULO 2 · AS MINAS DE MORIA (jornada) ============ -->
-  <section id="moria" class="chapter chapter-dark">
+  <!-- ============ CAP. II · A GRANDE DESCIDA (jornada) ============ -->
+  <section id="descida" class="chapter chapter-dark">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo II</span>
-      <h2 class="chapter-title">As Minas de Moria</h2>
-      <p class="chapter-motto">“Fundo, fundo cavaram os anãos.”</p>
+      <h2 class="chapter-title">A Grande Descida</h2>
+      <p class="chapter-motto">Fundo cavei a caverna do conhecimento.</p>
     </div>
-
-    <pre class="ascii ascii-mine" aria-hidden="true">
-   ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲
- ▏  ▔▔▔▔  ▏▔▔▔▔  ▏▔▔▔▔  ▏▔▔▔▔  ▏▔▔▔▔  ▏▔▔▔▔  ▏▔▔▔▔  ▏▔▔▔▔  ▏
- ▏  ⛏  ⛏ ▏  ⛏   ▏   ⛏  ▏ ⛏    ▏   ⛏  ▏  ⛏   ▏ ⛏    ▏  ⛏   ▏
- ▏________▏______▏______▏______▏______▏______▏______▏______▏
-    </pre>
 
     <ol class="descent">
       <li class="descent-step">
-        <span class="depth">▼ nível 1</span>
+        <span class="depth">▼ o primeiro nível</span>
         <div class="descent-card">
           <h3>O Chamado</h3>
           <span class="when">o início da descida</span>
-          <p>Os primeiros passos: lógica de programação, HTML e os fundamentos que acendem a tocha.</p>
-        </div>
-      </li>
-      <li class="descent-step">
-        <span class="depth">▼ nível 2</span>
-        <div class="descent-card">
-          <h3>A Ponte de Khazad-dûm</h3>
-          <span class="when">fundamentos</span>
-          <p>Estruturas de dados e algoritmos. Atravessar o abismo exige equilíbrio entre elegância e eficiência.</p>
-        </div>
-      </li>
-      <li class="descent-step">
-        <span class="depth">▼ nível 3</span>
-        <div class="descent-card">
-          <h3>A Câmara de Mazarbul</h3>
-          <span class="when">desenvolvimento</span>
-          <p>Front-end e back-end: erguer aplicações completas, do banco de dados à interface, sob a luz do próprio código.</p>
+          <p>Os primeiros passos: lógica de programação e os fundamentos que acendem a tocha.</p>
         </div>
       </li>
       <li class="descent-step">
         <span class="depth">▼ mais fundo</span>
         <div class="descent-card">
-          <h3>A Busca por Mithril</h3>
+          <h3>A Travessia</h3>
+          <span class="when">fundamentos</span>
+          <p>Estruturas de dados e algoritmos. Cada abismo exige equilíbrio entre elegância e eficiência.</p>
+        </div>
+      </li>
+      <li class="descent-step">
+        <span class="depth">▼ nas profundezas</span>
+        <div class="descent-card">
+          <h3>A Forja</h3>
+          <span class="when">desenvolvimento</span>
+          <p>Front-end e back-end: erguer aplicações completas, do banco de dados à interface.</p>
+        </div>
+      </li>
+      <li class="descent-step">
+        <span class="depth">▼ o veio mais raro</span>
+        <div class="descent-card">
+          <h3>A Busca</h3>
           <span class="when">agora</span>
           <p>Projetos reais, colaboração e a procura contínua pela maestria — o metal mais raro de todos.</p>
         </div>
@@ -180,127 +159,111 @@
     </ol>
   </section>
 
-  <!-- ============ CAPÍTULO 3 · A CÂMARA DOS ARTEFATOS (projetos) ============ -->
-  <section id="camara" class="chapter">
+  <!-- ============ CAP. III · O ARSENAL (projetos) ============ -->
+  <section id="arsenal" class="chapter">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo III</span>
-      <h2 class="chapter-title">A Câmara dos Artefatos</h2>
+      <h2 class="chapter-title">O Arsenal</h2>
       <p class="chapter-motto">Relíquias forjadas na bigorna do código.</p>
     </div>
     <p class="chapter-intro">Troque estas relíquias de exemplo pelos teus próprios tesouros.</p>
 
     <div class="relics">
-      <article class="relic">
-        <pre class="relic-art" aria-hidden="true">
-       _____
-     .'     '.
-    /  o   o  \
-   |    ___    |
-    \  '---'  /
-     '.._____.'
-      \|RING|/
-       `---'
-        </pre>
-        <h3>O Anel Único</h3>
-        <p>Projeto de exemplo. Descreve o que foi construído, o problema resolvido e o seu impacto no reino.</p>
+      <article class="relic tilt">
+        <div class="relic-sheen" aria-hidden="true"></div>
+        <div class="ascii-wrap">
+          <pre class="relic-art" aria-hidden="true">    ___
+  .'   '.
+ / .---. \
+ | | ⚙ | |
+ \ '---' /
+  '.___.'
+   |≡≡≡|
+   '---'</pre>
+        </div>
+        <h3>Primeiro Artefato</h3>
+        <p>Descreve o que foi construído, o problema resolvido e o seu impacto.</p>
         <div class="tags"><span>JavaScript</span><span>API</span><span>UI</span></div>
-        <div class="relic-links"><a href="#" class="rune-link">↗ Demonstrar</a><a href="#" class="rune-link">⌥ Pergaminho</a></div>
+        <div class="relic-links"><a href="#" class="rune-link">↗ Demonstrar</a><a href="#" class="rune-link">⌥ Código</a></div>
       </article>
 
-      <article class="relic">
-        <pre class="relic-art" aria-hidden="true">
-        .-.
-       /   \
-      | (o) |
-      |     |
-       \   /
-     .--'-'--.
-    /PALANTÍR \
-    '---------'
-        </pre>
-        <h3>O Palantír</h3>
-        <p>Painel de visualização de dados. Troca por um projeto teu com gráficos, métricas e revelações.</p>
+      <article class="relic tilt">
+        <div class="relic-sheen" aria-hidden="true"></div>
+        <div class="ascii-wrap">
+          <pre class="relic-art" aria-hidden="true">   .-""-.
+  /  __  \
+ | (|##|) |
+ |  |##|  |
+  \ |##| /
+   '.__.'
+  .-'""'-.
+ '--------'</pre>
+        </div>
+        <h3>Segundo Artefato</h3>
+        <p>Painel de dados, visualização ou análise. Troca por um projeto teu.</p>
         <div class="tags"><span>Python</span><span>Dados</span><span>Charts</span></div>
-        <div class="relic-links"><a href="#" class="rune-link">↗ Demonstrar</a><a href="#" class="rune-link">⌥ Pergaminho</a></div>
+        <div class="relic-links"><a href="#" class="rune-link">↗ Demonstrar</a><a href="#" class="rune-link">⌥ Código</a></div>
       </article>
 
-      <article class="relic">
-        <pre class="relic-art" aria-hidden="true">
-     ___________
-    /\          \
-   /  \  MAPA    \
-   \   \  DA      \
-    \   \ TERRA   /
-     \   \_______/
-      \  /      /
-       \/______/
-        </pre>
-        <h3>O Mapa da Terra-média</h3>
-        <p>Aplicação full-stack. Descreve a stack, a arquitetura e os abismos superados na missão.</p>
+      <article class="relic tilt">
+        <div class="relic-sheen" aria-hidden="true"></div>
+        <div class="ascii-wrap">
+          <pre class="relic-art" aria-hidden="true"> ________
+ |\      \
+ | \  ▦▦  \
+ |  \______\
+  \  |     |
+   \ |  ▦  |
+    \|_____|</pre>
+        </div>
+        <h3>Terceiro Artefato</h3>
+        <p>Aplicação full-stack. Descreve a stack, a arquitetura e os desafios vencidos.</p>
         <div class="tags"><span>React</span><span>Node</span><span>DB</span></div>
-        <div class="relic-links"><a href="#" class="rune-link">↗ Demonstrar</a><a href="#" class="rune-link">⌥ Pergaminho</a></div>
+        <div class="relic-links"><a href="#" class="rune-link">↗ Demonstrar</a><a href="#" class="rune-link">⌥ Código</a></div>
       </article>
     </div>
   </section>
 
-  <!-- ============ CAPÍTULO 4 · LOTHLÓRIEN (habilidades) ============ -->
-  <section id="lorien" class="chapter chapter-glade">
+  <!-- ============ CAP. IV · O BOSQUE DOS SABERES (skills) ============ -->
+  <section id="bosque" class="chapter chapter-glade">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo IV</span>
-      <h2 class="chapter-title">Lothlórien</h2>
-      <p class="chapter-motto">O bosque dourado, onde os saberes florescem.</p>
+      <h2 class="chapter-title">O Bosque dos Saberes</h2>
+      <p class="chapter-motto">Onde cada habilidade floresce como uma árvore.</p>
     </div>
 
-    <pre class="ascii ascii-forest" aria-hidden="true">
-      &   &&    &&&     &    &&&&   &&    &    &&&   &&&&&   &&    &
-     &&& &&&& &&&&&&&  &&&  &&&&&& &&&&  &&&  &&&&& &&&&&&& &&&&  &&&
-    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-      |    ||     |||    |    ||||   ||    |    |||   |||||   ||    |
-    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    </pre>
-
     <div class="runes">
-      <div class="rune-skill"><div class="rune-top"><span>Linguagens</span><span class="pct">85%</span></div><div class="rune-bar"><i style="--w:85%"></i></div></div>
-      <div class="rune-skill"><div class="rune-top"><span>Algoritmos & Estruturas</span><span class="pct">80%</span></div><div class="rune-bar"><i style="--w:80%"></i></div></div>
-      <div class="rune-skill"><div class="rune-top"><span>Desenvolvimento Web</span><span class="pct">75%</span></div><div class="rune-bar"><i style="--w:75%"></i></div></div>
-      <div class="rune-skill"><div class="rune-top"><span>Bancos de Dados</span><span class="pct">70%</span></div><div class="rune-bar"><i style="--w:70%"></i></div></div>
-      <div class="rune-skill"><div class="rune-top"><span>Git & Ferramentas</span><span class="pct">78%</span></div><div class="rune-bar"><i style="--w:78%"></i></div></div>
-      <div class="rune-skill"><div class="rune-top"><span>Magia Negra (Debugging)</span><span class="pct">90%</span></div><div class="rune-bar"><i style="--w:90%"></i></div></div>
+      <div class="rune-skill"><div class="rune-top"><span>Linguagens</span><span class="pct" data-to="85">0%</span></div><div class="rune-bar"><i style="--w:85%"></i></div></div>
+      <div class="rune-skill"><div class="rune-top"><span>Algoritmos &amp; Estruturas</span><span class="pct" data-to="80">0%</span></div><div class="rune-bar"><i style="--w:80%"></i></div></div>
+      <div class="rune-skill"><div class="rune-top"><span>Desenvolvimento Web</span><span class="pct" data-to="75">0%</span></div><div class="rune-bar"><i style="--w:75%"></i></div></div>
+      <div class="rune-skill"><div class="rune-top"><span>Bancos de Dados</span><span class="pct" data-to="70">0%</span></div><div class="rune-bar"><i style="--w:70%"></i></div></div>
+      <div class="rune-skill"><div class="rune-top"><span>Git &amp; Ferramentas</span><span class="pct" data-to="78">0%</span></div><div class="rune-bar"><i style="--w:78%"></i></div></div>
+      <div class="rune-skill"><div class="rune-top"><span>Magia Negra (Debugging)</span><span class="pct" data-to="90">0%</span></div><div class="rune-bar"><i style="--w:90%"></i></div></div>
     </div>
   </section>
 
-  <!-- ============ CAPÍTULO 5 · OS PORTÕES DE ARGONATH (contato) ============ -->
-  <section id="portoes" class="chapter chapter-dark">
+  <!-- ============ CAP. V · O GRANDE PORTÃO (contato) ============ -->
+  <section id="portao" class="chapter chapter-dark">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo V · Fim da estrada</span>
-      <h2 class="chapter-title">Os Portões de Argonath</h2>
-      <p class="chapter-motto">As grandes estátuas guardam a fronteira. Deixa o teu recado.</p>
+      <h2 class="chapter-title">O Grande Portão</h2>
+      <p class="chapter-motto">Toda jornada termina onde outra começa. Deixa o teu recado.</p>
     </div>
-
-    <pre class="ascii ascii-argonath" aria-hidden="true">
-    ████        ████          ████        ████
-    █▓▓█        █▓▓█          █▓▓█        █▓▓█
-    █▐▌█  /\    █▐▌█          █▐▌█   /\   █▐▌█
-    █▐▌█ /  \   █▐▌█          █▐▌█  /  \  █▐▌█
-    █▐▌█ |██|   █▐▌█   ~~~~   █▐▌█  |██|  █▐▌█
-    █▐▌█ |██|   █▐▌█  ~~~~~~  █▐▌█  |██|  █▐▌█
-    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀~~~~~~~~~~▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-    </pre>
 
     <form class="contact-form" id="contactForm" novalidate>
       <div class="field">
         <label for="nome">Vosso Nome</label>
-        <input type="text" id="nome" name="nome" placeholder="Aragorn, filho de Arathorn" required />
+        <input type="text" id="nome" name="nome" placeholder="Como devo chamar-te?" required />
       </div>
       <div class="field">
         <label for="email">Pombo-correio (e-mail)</label>
-        <input type="email" id="email" name="email" placeholder="voce@terra-media.com" required />
+        <input type="email" id="email" name="email" placeholder="voce@exemplo.com" required />
       </div>
       <div class="field">
         <label for="msg">Vossa Mensagem</label>
         <textarea id="msg" name="msg" rows="5" placeholder="Uma única palavra tornará isto realidade..." required></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Despachar o Corvo 🦅</button>
+      <button type="submit" class="btn btn-primary">Despachar a Mensagem 🦅</button>
       <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
     </form>
 
@@ -312,13 +275,9 @@
   </section>
 
   <footer class="footer">
-    <pre class="footer-art" aria-hidden="true">
-⟡ ═══════════════════════════════════ ⟡
-   A estrada segue sempre em frente,
-    para longe da porta onde começou.
-⟡ ═══════════════════════════════════ ⟡
-    </pre>
-    <p>Forjado em código nas forjas da Montanha da Perdição · <span id="year"></span></p>
+    <p class="footer-quote">“A estrada segue sempre adiante, para longe da porta onde começou.”</p>
+    <p>Forjado em código &amp; café · <span id="year"></span></p>
+    <p class="credits">Trilha: <em>luis_humanoide</em> &amp; <em>geoffharvey</em> (Pixabay)</p>
   </footer>
 
   <script src="script.js"></script>
