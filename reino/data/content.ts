@@ -12,10 +12,13 @@ export type ProjectStatus = "concluida" | "em-andamento" | "lenda";
 
 export interface Project {
   id: string;
+  roman: string; // numeral romano exibido (I, II, III...)
+  subtitle: string; // ex.: "ATLAS INTERATIVO · MMXXV"
   title: string;
   description: string;
   status: ProjectStatus;
   rewards: string[]; // tecnologias exibidas como "recompensas"
+  image: string; // caminho da ilustração (/art/...)
   demoUrl?: string;
   repoUrl?: string;
 }
@@ -98,34 +101,43 @@ export const content: Content = {
     },
   ],
 
-  // ⚑ EDITÁVEL — cada projeto é uma "missão"
+  // ⚑ EDITÁVEL — cada projeto é uma "crônica" (obra), com sua ilustração
   projects: [
     {
       id: "p1",
-      title: "A Primeira Relíquia",
+      roman: "I",
+      subtitle: "ATLAS INTERATIVO · MMXXV",
+      title: "A Floresta Verdejante",
       description:
-        "⚑ EDITÁVEL: descreve um projeto teu — o problema que resolveu e o que construíste.",
+        "⚑ EDITÁVEL: um atlas vivo de florestas imaginadas. Descreve aqui a tua obra — o problema, a ideia e a magia que a move.",
       status: "concluida",
-      rewards: ["JavaScript", "API", "UI"],
+      rewards: ["React", "TypeScript", "Canvas", "Motion"],
+      image: "/art/forest.jpg",
       demoUrl: "#",
       repoUrl: "#",
     },
     {
       id: "p2",
-      title: "O Oráculo de Dados",
+      roman: "II",
+      subtitle: "CIDADELA EDITORIAL · MMXXV",
+      title: "A Cidadela de Aldorion",
       description:
-        "⚑ EDITÁVEL: um painel, análise ou ferramenta de dados que tenhas criado.",
+        "⚑ EDITÁVEL: portal narrativo para uma cidadela fictícia — crônicas, linhagens e mapas do vale, em tipografia editorial cinematográfica.",
       status: "em-andamento",
-      rewards: ["Python", "Dados", "Gráficos"],
+      rewards: ["React", "TanStack", "Tailwind", "SSR"],
+      image: "/art/castle.jpg",
       repoUrl: "#",
     },
     {
       id: "p3",
-      title: "A Ponte entre Mundos",
+      roman: "III",
+      subtitle: "GRIMÓRIO VIVO · MMXXV",
+      title: "O Códice Iluminado",
       description:
-        "⚑ EDITÁVEL: uma aplicação full-stack — descreve a stack e os desafios vencidos.",
+        "⚑ EDITÁVEL: uma aplicação full-stack em forma de manuscrito iluminado. Descreve a stack e os desafios vencidos sob a luz de vela.",
       status: "lenda",
-      rewards: ["React", "Node", "Banco de Dados"],
+      rewards: ["Node", "Banco de Dados", "API"],
+      image: "/art/valley.jpg",
       demoUrl: "#",
       repoUrl: "#",
     },
