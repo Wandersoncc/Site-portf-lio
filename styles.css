@@ -42,8 +42,12 @@ body::before {
 }
 body::after {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  opacity: 0.05; mix-blend-mode: overlay;
-  background-image: repeating-linear-gradient(0deg, #000 0 1px, transparent 1px 3px);
+  opacity: 0.06; mix-blend-mode: overlay;
+  /* trama/damasco sutil de losangos dourados */
+  background-image:
+    repeating-linear-gradient(45deg, rgba(201,162,39,.5) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(-45deg, rgba(201,162,39,.5) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(0deg, #000 0 1px, transparent 1px 3px);
 }
 
 #embers { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
@@ -131,6 +135,30 @@ a:hover { color: var(--gold-bright); }
 /* ===================== Hero / A Estrada ===================== */
 .chapter-hero { text-align: center; overflow: hidden; }
 .hero-inner { position: relative; z-index: 3; max-width: 880px; margin: 0 auto; }
+
+/* raios de luz atrás do herói */
+.light-rays {
+  position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+  width: 140vw; height: 90vh; z-index: 0; pointer-events: none; opacity: .5;
+  background: conic-gradient(from 180deg at 50% 0,
+    transparent 0deg, rgba(201,162,39,.09) 8deg, transparent 16deg,
+    rgba(201,162,39,.07) 26deg, transparent 34deg, rgba(201,162,39,.1) 46deg,
+    transparent 54deg, rgba(201,162,39,.06) 66deg, transparent 74deg);
+  animation: rayDrift 18s ease-in-out infinite alternate;
+  -webkit-mask-image: radial-gradient(70% 90% at 50% 0, #000, transparent 75%);
+  mask-image: radial-gradient(70% 90% at 50% 0, #000, transparent 75%);
+}
+@keyframes rayDrift { from { transform: translateX(-50%) rotate(-3deg); } to { transform: translateX(-50%) rotate(3deg); } }
+
+/* brasão */
+.crest { width: 120px; height: 130px; margin: 0 auto 6px; display: block; filter: drop-shadow(0 4px 14px rgba(0,0,0,.6)); animation: crestFloat 5s ease-in-out infinite; }
+@keyframes crestFloat { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
+
+/* régua ornamental sob o título */
+.title-rule { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 6px auto 18px; max-width: 420px; }
+.title-rule span { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.title-rule i { color: var(--gold); font-style: normal; font-size: 1rem; text-shadow: 0 0 10px rgba(201,162,39,.6); }
+
 .hero-pretitle { font-family: var(--font-deco); color: var(--gold); letter-spacing: 8px; font-size: 1.2rem; margin-bottom: 10px; opacity: .85; }
 .hero-title { margin: 0 0 14px; }
 .title-fantasy.hero-title {
@@ -161,10 +189,28 @@ a:hover { color: var(--gold-bright); }
 @keyframes bob { 0%,100%{ transform: translateY(0); opacity:.5 } 50%{ transform: translateY(8px); opacity:1 } }
 
 /* ===================== Banner de capítulo ===================== */
-.chapter-banner { text-align: center; margin-bottom: 48px; }
-.chapter-no { font-family: var(--font-mono); color: var(--ember); letter-spacing: 3px; text-transform: uppercase; font-size: .78rem; }
-.chapter-title { font-family: var(--font-head); font-weight: 900; font-size: clamp(1.8rem,5vw,3rem); color: var(--ink); letter-spacing: 1px; margin: 8px 0; text-shadow: 0 2px 20px var(--shadow); }
-.chapter-motto { font-family: var(--font-deco); color: var(--gold); font-size: 1.15rem; }
+.chapter-banner { text-align: center; margin-bottom: 52px; position: relative; }
+.chapter-no {
+  display: inline-block; font-family: var(--font-mono); color: var(--gold-bright);
+  letter-spacing: 3px; text-transform: uppercase; font-size: .72rem;
+  padding: 5px 18px; margin-bottom: 6px;
+  border: 1px solid var(--line); border-radius: 20px;
+  background: linear-gradient(180deg, rgba(201,162,39,.12), transparent);
+}
+.chapter-title { font-family: var(--font-head); font-weight: 900; font-size: clamp(1.8rem,5vw,3rem); color: var(--ink); letter-spacing: 1px; margin: 8px 0 6px; text-shadow: 0 2px 20px var(--shadow); }
+/* flourish ornamental sob o título do capítulo */
+.chapter-title::after {
+  content: ""; display: block; width: 180px; height: 16px; margin: 12px auto 0;
+  background:
+    radial-gradient(circle at 50% 0, var(--gold) 0 2.5px, transparent 3px),
+    linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  background-size: 100% 100%, 100% 1px;
+  background-position: center 7px, center 7px;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+}
+.chapter-motto { font-family: var(--font-deco); color: var(--gold); font-size: 1.15rem; margin-top: 10px; }
 .chapter-intro { text-align: center; color: var(--ink-soft); margin: -28px auto 40px; max-width: 600px; }
 
 /* ===================== Limiar ===================== */
@@ -392,3 +438,53 @@ body.dragon-mode { animation: hueShift 6s linear infinite; }
   .preloader { display: none; }
   .torch .flame, .loader-ring, .dots { animation: none; }
 }
+
+/* ============================================================
+   ORNAMENTOS GRÁFICOS (SVG / CSS) — riqueza visual
+   ============================================================ */
+
+/* Divisor ornamental entre seções */
+.ornament-divider { display: flex; justify-content: center; padding: 10px 24px 4px; color: var(--gold); }
+.ornament-divider svg { width: min(420px, 80%); height: auto; filter: drop-shadow(0 0 8px rgba(201,162,39,.35)); opacity: .9; }
+
+/* Cantos ornamentais nos cards de relíquia (molduras) */
+.relic-face { position: relative; }
+.relic-face::before, .relic-face::after {
+  content: ""; position: absolute; width: 22px; height: 22px; pointer-events: none;
+  border-color: var(--gold); border-style: solid; border-width: 0; opacity: .7;
+}
+.relic-face::before { top: 8px; left: 8px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 6px; }
+.relic-face::after  { bottom: 8px; right: 8px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 6px; }
+.relic:hover .relic-face::before, .relic:hover .relic-face::after { opacity: 1; box-shadow: 0 0 10px rgba(201,162,39,.5); }
+
+/* Moldura decorativa para o bloco "O Limiar" */
+.portal-text {
+  position: relative; padding: 32px 36px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background:
+    radial-gradient(120% 120% at 50% 0, rgba(201,162,39,.06), transparent 60%),
+    linear-gradient(180deg, rgba(30,25,18,.5), rgba(14,11,9,.4));
+  box-shadow: inset 0 0 40px rgba(0,0,0,.4);
+}
+.portal-text::before {
+  content: "❦"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  color: var(--gold); background: var(--stone-900); padding: 0 12px; font-size: 1.3rem;
+}
+
+/* Selo de cera no formulário de contato */
+.wax-seal {
+  width: 76px; height: 76px; margin: 0 auto 24px; border-radius: 50%;
+  display: grid; place-items: center; color: #2a0a04; font-size: 1.8rem;
+  background: radial-gradient(circle at 38% 34%, #e8731f, #b5240a 60%, #7a1505);
+  box-shadow: 0 6px 16px rgba(0,0,0,.6), inset 0 2px 6px rgba(255,255,255,.3), inset 0 -6px 12px rgba(0,0,0,.4);
+  border: 2px solid rgba(255,180,120,.25);
+  position: relative; animation: sealPulse 4s ease-in-out infinite;
+}
+@keyframes sealPulse { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.04); } }
+
+/* Cartela com cantos para os blocos de habilidade */
+.rune-skill { position: relative; padding: 10px 14px; border: 1px solid transparent; border-radius: 8px; transition: border-color .3s, background .3s; }
+.rune-skill:hover { border-color: var(--line); background: rgba(201,162,39,.04); }
+
+/* Vinheta decorativa dos capítulos: moldura fina interna */
+.chapter { position: relative; }

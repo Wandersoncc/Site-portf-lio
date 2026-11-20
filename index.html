@@ -66,10 +66,37 @@
 
   <!-- ============ A ESTRADA (hero) ============ -->
   <section id="estrada" class="chapter chapter-hero">
+    <div class="light-rays" aria-hidden="true"></div>
 
     <div class="hero-inner">
-      <p class="hero-pretitle">✶ ⟡ ✶</p>
+      <!-- Brasão / emblema SVG -->
+      <svg class="crest" viewBox="0 0 120 130" aria-hidden="true">
+        <defs>
+          <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff6c8"/><stop offset=".5" stop-color="#f0d060"/>
+            <stop offset="1" stop-color="#8a6d3b"/>
+          </linearGradient>
+        </defs>
+        <!-- escudo -->
+        <path d="M60 6 L108 22 V64 C108 96 86 116 60 126 C34 116 12 96 12 64 V22 Z"
+              fill="rgba(20,16,10,.6)" stroke="url(#gGold)" stroke-width="2.5"/>
+        <path d="M60 14 L100 27 V64 C100 92 80 109 60 118 C40 109 20 92 20 64 V27 Z"
+              fill="none" stroke="rgba(201,162,39,.4)" stroke-width="1"/>
+        <!-- espadas cruzadas -->
+        <g stroke="url(#gGold)" stroke-width="3" stroke-linecap="round" fill="none">
+          <line x1="38" y1="44" x2="82" y2="92"/>
+          <line x1="82" y1="44" x2="38" y2="92"/>
+        </g>
+        <!-- gema central -->
+        <circle cx="60" cy="68" r="7" fill="url(#gGold)"/>
+        <circle cx="60" cy="68" r="7" fill="none" stroke="#fff6c8" stroke-width="1" opacity=".7"/>
+        <!-- coroa no topo -->
+        <path d="M46 24 l4 -10 5 7 5 -9 5 9 5 -7 4 10 Z" fill="url(#gGold)"/>
+      </svg>
+
+      <p class="hero-pretitle">✶ &nbsp;⟡&nbsp; ✶</p>
       <h1 class="hero-title title-fantasy">A Jornada</h1>
+      <div class="title-rule" aria-hidden="true"><span></span><i>❖</i><span></span></div>
       <p class="hero-kicker">de um estudante de Ciência da Computação</p>
       <p class="hero-sub">
         O que vês adiante não é um currículo — é uma <strong>estrada</strong>.
@@ -83,6 +110,19 @@
       <span class="chevrons">⌄ ⌄ ⌄</span>
     </div>
   </section>
+
+  <div class="ornament-divider" aria-hidden="true">
+    <svg viewBox="0 0 400 24" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <line x1="20" y1="12" x2="160" y2="12"/>
+        <line x1="240" y1="12" x2="380" y2="12"/>
+        <path d="M160 12 q20 -10 40 0 q20 10 40 0"/>
+      </g>
+      <path d="M200 4 l6 8 -6 8 -6 -8 Z" fill="currentColor"/>
+      <circle cx="160" cy="12" r="2.5" fill="currentColor"/>
+      <circle cx="240" cy="12" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
 
   <!-- ============ CAP. I · O LIMIAR (sobre) ============ -->
   <section id="limiar" class="chapter">
@@ -113,6 +153,19 @@
       </div>
     </div>
   </section>
+
+  <div class="ornament-divider" aria-hidden="true">
+    <svg viewBox="0 0 400 24" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <line x1="20" y1="12" x2="160" y2="12"/>
+        <line x1="240" y1="12" x2="380" y2="12"/>
+        <path d="M160 12 q20 -10 40 0 q20 10 40 0"/>
+      </g>
+      <path d="M200 4 l6 8 -6 8 -6 -8 Z" fill="currentColor"/>
+      <circle cx="160" cy="12" r="2.5" fill="currentColor"/>
+      <circle cx="240" cy="12" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
 
   <!-- ============ CAP. II · A GRANDE DESCIDA (jornada) ============ -->
   <section id="descida" class="chapter chapter-dark">
@@ -157,6 +210,19 @@
       </li>
     </ol>
   </section>
+
+  <div class="ornament-divider" aria-hidden="true">
+    <svg viewBox="0 0 400 24" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <line x1="20" y1="12" x2="160" y2="12"/>
+        <line x1="240" y1="12" x2="380" y2="12"/>
+        <path d="M160 12 q20 -10 40 0 q20 10 40 0"/>
+      </g>
+      <path d="M200 4 l6 8 -6 8 -6 -8 Z" fill="currentColor"/>
+      <circle cx="160" cy="12" r="2.5" fill="currentColor"/>
+      <circle cx="240" cy="12" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
 
   <!-- ============ CAP. III · O ARSENAL (projetos) ============ -->
   <section id="arsenal" class="chapter">
@@ -222,6 +288,19 @@
     </div>
   </section>
 
+  <div class="ornament-divider" aria-hidden="true">
+    <svg viewBox="0 0 400 24" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <line x1="20" y1="12" x2="160" y2="12"/>
+        <line x1="240" y1="12" x2="380" y2="12"/>
+        <path d="M160 12 q20 -10 40 0 q20 10 40 0"/>
+      </g>
+      <path d="M200 4 l6 8 -6 8 -6 -8 Z" fill="currentColor"/>
+      <circle cx="160" cy="12" r="2.5" fill="currentColor"/>
+      <circle cx="240" cy="12" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
+
   <!-- ============ CAP. IV · O BOSQUE DOS SABERES (skills) ============ -->
   <section id="bosque" class="chapter chapter-glade">
     <div class="chapter-banner">
@@ -240,6 +319,19 @@
     </div>
   </section>
 
+  <div class="ornament-divider" aria-hidden="true">
+    <svg viewBox="0 0 400 24" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <line x1="20" y1="12" x2="160" y2="12"/>
+        <line x1="240" y1="12" x2="380" y2="12"/>
+        <path d="M160 12 q20 -10 40 0 q20 10 40 0"/>
+      </g>
+      <path d="M200 4 l6 8 -6 8 -6 -8 Z" fill="currentColor"/>
+      <circle cx="160" cy="12" r="2.5" fill="currentColor"/>
+      <circle cx="240" cy="12" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
+
   <!-- ============ CAP. V · O GRANDE PORTÃO (contato) ============ -->
   <section id="portao" class="chapter chapter-dark">
     <div class="chapter-banner">
@@ -248,7 +340,7 @@
       <p class="chapter-motto">Toda jornada termina onde outra começa. Deixa o teu recado.</p>
     </div>
 
-    <div class="glyph-divider" aria-hidden="true">⚜ ━━━◆━━━ ⚜</div>
+    <div class="wax-seal" aria-hidden="true">✉</div>
 
     <form class="contact-form" id="contactForm" novalidate>
       <div class="field">
