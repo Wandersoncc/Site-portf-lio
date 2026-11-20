@@ -197,30 +197,30 @@ form.addEventListener('submit', (e) => {
 /* ============================================================
    FUNDO DE BRASAS
    ============================================================ */
-(function embers() {
+(function pollen() {
   if (prefersReduced) return;
   const canvas = document.getElementById('embers');
   const ctx = canvas.getContext('2d');
-  let w, h, particles;
+  const COLORS = ['255,255,255', '255,233,176', '170,224,160', '140,210,215']; // branco, dourado, verde, turquesa
+  let w, h, motes;
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-    particles = Array.from({ length: Math.min(90, Math.floor(w / 18)) }, spawn);
+    motes = Array.from({ length: Math.min(70, Math.floor(w / 24)) }, spawn);
   }
   function spawn() {
-    return { x: Math.random()*w, y: h+Math.random()*h, r: Math.random()*2+0.6,
-      vy: Math.random()*0.6+0.2, vx: (Math.random()-0.5)*0.4, life: Math.random(),
-      hue: Math.random() > 0.5 ? 42 : 20 };
+    return { x: Math.random()*w, y: h + Math.random()*h, r: Math.random()*2.4+0.8,
+      vy: Math.random()*0.5+0.15, vx: (Math.random()-0.5)*0.5, life: Math.random(),
+      sway: Math.random()*2+1, color: COLORS[Math.floor(Math.random()*COLORS.length)] };
   }
   function tick() {
     ctx.clearRect(0, 0, w, h);
-    for (const p of particles) {
-      p.y -= p.vy; p.x += p.vx + Math.sin(p.y*0.01)*0.3; p.life += 0.004;
-      if (p.y < -10) Object.assign(p, spawn(), { y: h+10 });
-      const alpha = 0.5 + Math.sin(p.life*Math.PI)*0.4;
-      const light = p.hue === 42 ? '201,162,39' : '212,84,30';
-      ctx.beginPath(); ctx.fillStyle = `rgba(${light},${alpha.toFixed(2)})`;
-      ctx.shadowBlur = 10; ctx.shadowColor = `rgba(${light},0.8)`;
+    for (const p of motes) {
+      p.y -= p.vy; p.x += p.vx + Math.sin(p.y*0.012)*p.sway*0.3; p.life += 0.004;
+      if (p.y < -12) Object.assign(p, spawn(), { y: h+12 });
+      const alpha = 0.35 + Math.sin(p.life*Math.PI)*0.4;
+      ctx.beginPath(); ctx.fillStyle = `rgba(${p.color},${alpha.toFixed(2)})`;
+      ctx.shadowBlur = 12; ctx.shadowColor = `rgba(${p.color},0.9)`;
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
     }
     ctx.shadowBlur = 0; requestAnimationFrame(tick);
