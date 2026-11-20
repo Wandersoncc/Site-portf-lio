@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #2f4552;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--ink);
+  @apply font-body bg-dawn-sky bg-fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* esconde o cursor nativo quando o cursor custom está ativo */
+body.custom-cursor,
+body.custom-cursor * {
+  cursor: none;
+}
+
+/* utilitário: textura de pergaminho (SVG inline via CSS) */
+.parchment-tex {
+  background-color: #f3e7cf;
+  background-image:
+    radial-gradient(rgba(107, 74, 43, 0.06) 1px, transparent 1px),
+    radial-gradient(rgba(107, 74, 43, 0.05) 1px, transparent 1px);
+  background-size: 12px 12px, 20px 20px;
+  background-position: 0 0, 6px 10px;
+}
+
+/* respeita a preferência de redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* foco visível acessível */
+:focus-visible {
+  outline: 3px solid #e3a43a;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
