@@ -112,93 +112,36 @@ a:hover { color: var(--gold-bright); }
 .chapter-glade { background: radial-gradient(900px 500px at 50% 30%, rgba(201,162,39,.06), transparent 60%); max-width: none; }
 .chapter-glade > * { max-width: 1100px; margin-left: auto; margin-right: auto; width: 100%; }
 
-/* contêiner que impede QUALQUER rolagem horizontal das artes ASCII */
-.ascii-wrap { width: 100%; max-width: 100%; overflow: hidden; display: flex; justify-content: center; }
-.ascii { font-family: var(--font-mono); white-space: pre; max-width: 100%; }
-
 /* ============================================================
-   ASCII ART COLORIDA
-   Gradiente aplicado às letras via background-clip: text.
-   Cada peça tem seu clima: dragão = fogo, castelo = ouro,
-   portão = pedra fria. Gradientes animados dão vida.
+   TIPOGRAFIA DE FANTASIA (estilo Tolkien / filmes)
+   Cinzel Decorative evoca os títulos de O Senhor dos Anéis;
+   Uncial Antiqua dá o toque élfico/manuscrito.
    ============================================================ */
-.art-gate-big {
-  font-weight: 700;
-  line-height: 1.05;
-  background-size: 220% 220%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-@keyframes goldFlow { 0%,100%{ background-position:0% 50% } 50%{ background-position:100% 50% } }
-
-/* Grande portão — pedra fria azulada (aurora) */
-.art-gate-big {
-  font-size: clamp(.4rem, 1.25vw, .72rem);
-  background-image: linear-gradient(135deg, #cfe8ff 0%, #7fb2e8 28%, #4a7fc9 52%, #9b8cff 74%, #cfe8ff 100%);
-  filter: drop-shadow(0 0 10px rgba(123,178,232,.4));
-  animation: auroraFlow 10s linear infinite;
-  margin-bottom: 34px;
-}
-@keyframes auroraFlow { 0%{ background-position:0% 0% } 100%{ background-position:200% 100% } }
-
-/* ============================================================
-   CENAS EM ASCII REALISTA (geradas de fotos)
-   Preenchem a largura e ficam como pano de fundo.
-   ============================================================ */
-/* Faixa de cena: ocupa TODA a largura da tela, sem conteúdo por cima */
-.scene-band {
-  position: relative; z-index: 2;
-  width: 100vw; left: 50%; margin-left: -50vw;   /* escapa do container e vai edge-to-edge */
-  overflow: hidden; line-height: 0;
-  background: #060a10;
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-}
-.scene-band .ascii-scene {
-  display: block; margin: 0;
-  font-family: var(--font-mono); white-space: pre; font-weight: 700;
-  line-height: 1.0; letter-spacing: 0;
-  /* JS define o font-size para preencher 100vw exatamente */
-}
-/* cada <span> já traz a cor do pixel de origem (colorido de verdade) */
-.scene-band .ascii-scene span { color: inherit; }
-.scene-caption {
-  position: absolute; bottom: 14px; left: 0; right: 0; text-align: center;
-  font-family: var(--font-deco); color: var(--gold); letter-spacing: 2px;
-  font-size: 1rem; text-shadow: 0 2px 10px #000; line-height: 1.4; z-index: 1;
-}
-.scene-band-dragon { background: #0a0402; }
-/* leve escurecimento nas bordas para integrar à página */
-.scene-band::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  box-shadow: inset 0 0 90px 30px rgba(6,10,16,.9);
-}
-
-/* Título gigante da jornada (FIGlet) — ouro vivo, gradiente que corre */
-.art-title {
-  font-weight: 700; line-height: 1.02;
-  font-size: clamp(.42rem, 1.7vw, 1rem);
-  background-image: linear-gradient(110deg, #fff6c8 0%, #ffcf3f 22%, #c9a227 45%, #f0d060 60%, #ffcf3f 78%, #fff6c8 100%);
-  background-size: 250% 100%;
+.title-fantasy {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background-image: linear-gradient(180deg, #fff6c8 0%, #f0d060 30%, #c9a227 60%, #8a6d3b 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
-  filter: drop-shadow(0 0 16px rgba(201,162,39,.5));
-  animation: titleFlow 5s linear infinite;
+  text-shadow: 0 2px 24px rgba(201,162,39,.25);
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
 }
-@keyframes titleFlow { to { background-position: 250% 0; } }
-.hero-title { margin-bottom: 14px; }
 
 /* ===================== Hero / A Estrada ===================== */
 .chapter-hero { text-align: center; overflow: hidden; }
-
 .hero-inner { position: relative; z-index: 3; max-width: 880px; margin: 0 auto; }
-/* fundo escuro suave atrás do texto do hero, para legibilidade sobre o dragão */
-.hero-inner::before {
-  content: ""; position: absolute; inset: -30px -40px; z-index: -1;
-  background: radial-gradient(60% 70% at 50% 50%, rgba(8,6,4,.78), transparent 75%);
-}
+.hero-pretitle { font-family: var(--font-deco); color: var(--gold); letter-spacing: 8px; font-size: 1.2rem; margin-bottom: 10px; opacity: .85; }
 .hero-title { margin: 0 0 14px; }
+.title-fantasy.hero-title {
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 1.05;
+  animation: titleGlow 5s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%,100% { filter: drop-shadow(0 1px 1px rgba(0,0,0,.5)) drop-shadow(0 0 14px rgba(201,162,39,.25)); }
+  50%     { filter: drop-shadow(0 1px 1px rgba(0,0,0,.5)) drop-shadow(0 0 28px rgba(240,208,96,.55)); }
+}
 .hero-kicker { font-family: var(--font-deco); color: var(--ember); letter-spacing: 2px; font-size: 1.05rem; margin-bottom: 22px; }
 .hero-sub { color: var(--ink-soft); font-size: 1.15rem; max-width: 600px; margin: 0 auto 30px; min-height: 3.4em; }
 .hero-sub strong { color: var(--gold); }
@@ -238,7 +181,7 @@ a:hover { color: var(--gold-bright); }
 .chapter > .runes,
 .chapter > form,
 .chapter > .social,
-.chapter > .ascii-wrap { position: relative; z-index: 1; }
+.chapter > .glyph-divider { position: relative; z-index: 1; }
 .portal-text p { margin-bottom: 16px; }
 .portal-text strong { color: var(--gold); }
 .facts { list-style: none; margin-top: 12px; }
@@ -263,22 +206,14 @@ a:hover { color: var(--gold-bright); }
 .relics { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
 .relic { position: relative; background: linear-gradient(180deg, rgba(40,33,24,.6), rgba(18,15,11,.6)); border: 1px solid var(--line); border-radius: 10px; padding: 26px 24px; display: flex; flex-direction: column; overflow: hidden; transition: transform .25s, box-shadow .3s, border-color .3s; transform-style: preserve-3d; }
 .relic:hover { border-color: var(--gold); box-shadow: 0 18px 44px var(--shadow), 0 0 32px rgba(201,162,39,.16); }
-/* reflexo que segue o mouse */
-.relic-sheen { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(240,208,96,.14), transparent 45%); }
-.relic:hover .relic-sheen { opacity: 1; }
-.relic-art {
-  font-family: var(--font-mono); font-weight: 700;
-  font-size: clamp(.6rem,1.5vw,.78rem); line-height: 1.08;
-  margin-bottom: 14px; min-height: 150px; text-align: center;
-  background-size: 200% 200%;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent;
-  animation: goldFlow 7s ease-in-out infinite;
+/* ícone de relíquia (emoji grande, com brilho) */
+.relic-glyph {
+  font-size: 4.5rem; line-height: 1; text-align: center; margin: 6px 0 16px;
+  filter: drop-shadow(0 0 16px rgba(201,162,39,.45));
+  transition: transform .3s;
 }
-.art-relic-shield { background-image: linear-gradient(140deg, #eaf2ff, #9fc3f0 40%, #4a7fc9 70%, #cfe0f5); filter: drop-shadow(0 0 8px rgba(127,178,232,.45)); }
-.art-relic-tome   { background-image: linear-gradient(140deg, #d6ffe6, #57d98a 40%, #1f9c5a 70%, #bff5d4); filter: drop-shadow(0 0 8px rgba(87,217,138,.4)); }
-.art-relic-crown  { background-image: linear-gradient(140deg, #fff6c8, #ffcf3f 40%, #c9a227 70%, #f0d060); filter: drop-shadow(0 0 10px rgba(255,207,63,.5)); }
-.relic h3 { font-family: var(--font-head); color: var(--ink); margin-bottom: 10px; }
+.relic:hover .relic-glyph { transform: scale(1.12) rotate(-4deg); }
+.relic h3 { font-family: 'Cinzel Decorative', var(--font-head); color: var(--ink); margin-bottom: 10px; }
 .relic p { color: var(--ink-soft); flex-grow: 1; margin-bottom: 16px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .tags span { font-family: var(--font-mono); font-size: .72rem; padding: 3px 10px; border: 1px solid var(--bronze); border-radius: 20px; color: var(--ink-soft); transition: background .25s, color .25s; }
@@ -298,6 +233,7 @@ a:hover { color: var(--gold-bright); }
 @keyframes shimmer { 0%{ transform: translateX(-40px) } 100%{ transform: translateX(600px) } }
 
 /* ===================== O Grande Portão ===================== */
+.glyph-divider { text-align: center; color: var(--gold); font-size: 1.6rem; letter-spacing: 6px; margin: 0 auto 36px; opacity: .85; text-shadow: 0 0 14px rgba(201,162,39,.4); }
 .contact-form { max-width: 620px; margin: 0 auto 40px; width: 100%; }
 .field { margin-bottom: 20px; }
 .field label { display: block; font-family: var(--font-head); font-size: .9rem; margin-bottom: 8px; color: var(--ink); letter-spacing: .5px; }
@@ -417,11 +353,7 @@ a:hover { color: var(--gold-bright); }
 .relic-back h3 { font-family: var(--font-head); color: var(--ink); margin-bottom: 10px; }
 .relic-back p { color: var(--ink-soft); flex-grow: 1; margin-bottom: 16px; }
 
-/* ---------- Dragão interativo ---------- */
-.dragon-wrap { cursor: pointer; transition: filter .3s; }
-.dragon-wrap:hover { filter: brightness(1.15); }
-.art-dragon.roar { animation: roar .5s ease; }
-@keyframes roar { 0%{ transform: scale(1) } 30%{ transform: scale(1.04) rotate(-.5deg) } 100%{ transform: scale(1) } }
+
 
 /* faísca (spark) gerada em JS */
 .spark { position: fixed; z-index: 45; width: 4px; height: 4px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, #fff3b0, #ff7a18 60%, transparent); box-shadow: 0 0 6px #ff7a18; }
@@ -443,7 +375,7 @@ a:hover { color: var(--gold-bright); }
 /* ---------- Modo Dragão (easter egg Konami) ---------- */
 body.dragon-mode { animation: hueShift 6s linear infinite; }
 @keyframes hueShift { to { filter: hue-rotate(360deg); } }
-body.dragon-mode .art-dragon { animation: fireFlow 1.5s ease-in-out infinite, roar 1.5s ease infinite; }
+
 
 /* ---------- Botão "voltar ao topo" ---------- */
 .to-top {

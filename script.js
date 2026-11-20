@@ -112,16 +112,6 @@ document.querySelectorAll('.chapter[id]').forEach(c => {
    ============================================================ */
 const cursorGlow = document.getElementById('cursorGlow');
 if (!prefersReduced) {
-  // parallax
-  const layers = document.querySelectorAll('.parallax');
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    layers.forEach(l => {
-      const speed = parseFloat(l.dataset.speed) || 0.2;
-      l.style.transform = `translateY(${y * speed}px)`;
-    });
-  }, { passive: true });
-
   // brilho que segue o mouse
   window.addEventListener('pointermove', (e) => {
     cursorGlow.style.opacity = '1';
@@ -287,7 +277,7 @@ document.querySelectorAll('.relic').forEach(card => {
   });
 });
 
-/* ---------- Dragão interativo: faíscas + rugido ---------- */
+/* ---------- Faíscas douradas ao interagir com o título ---------- */
 function spawnSpark(x, y) {
   const s = document.createElement('div');
   s.className = 'spark';
@@ -302,16 +292,12 @@ function spawnSpark(x, y) {
   ], { duration: 600 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.2,1)' })
    .onfinish = () => s.remove();
 }
-const dragonScene = document.querySelector('.scene-band-dragon');
-if (dragonScene && !prefersReduced) {
-  let last = 0;
-  dragonScene.addEventListener('pointermove', (e) => {
-    const now = Date.now();
-    if (now - last > 50) { spawnSpark(e.clientX, e.clientY); last = now; }
-  });
-  dragonScene.addEventListener('click', (e) => {
-    for (let i = 0; i < 20; i++) setTimeout(() => spawnSpark(e.clientX + (Math.random()-.5)*80, e.clientY + (Math.random()-.5)*50), i * 18);
-    unlock('Dragão Desperto', 'Tu acordaste a besta adormecida');
+const heroTitle = document.querySelector('.hero-title');
+if (heroTitle && !prefersReduced) {
+  heroTitle.style.cursor = 'pointer';
+  heroTitle.addEventListener('click', (e) => {
+    for (let i = 0; i < 18; i++) setTimeout(() => spawnSpark(e.clientX + (Math.random()-.5)*120, e.clientY + (Math.random()-.5)*50), i * 16);
+    unlock('A Chama Desperta', 'Faíscas de uma nova aventura');
   });
 }
 
@@ -399,50 +385,4 @@ window.addEventListener('keydown', (e) => {
   window.addEventListener('resize', resize); resize(); tick();
 })();
 
-/* ============================================================
-   CENAS ASCII — ajusta o tamanho da fonte para preencher a
-   largura do contêiner (sem rolagem horizontal, responsivo)
-   ============================================================ */
-(function sceneBands() {
-  const bands = document.querySelectorAll('.scene-band');
-  if (!bands.length) return;
-  const CHAR_W = 0.60;   // largura do glifo monospace ≈ 0.6em
 
-  function fit(pre) {
-    const cols = pre.dataset.cols | 0;
-    if (!cols) return;
-    const w = pre.parentElement.clientWidth;        // = 100vw
-    pre.style.fontSize = (w / (cols * CHAR_W)) + 'px';
-  }
-
-  function fitAll() { bands.forEach(b => { const p = b.querySelector('.ascii-scene'); if (p.dataset.cols) fit(p); }); }
-
-  // carrega cada fragmento colorido sob demanda ao se aproximar da viewport
-  const loadObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const band = entry.target;
-      obs.unobserve(band);
-      const pre = band.querySelector('.ascii-scene');
-      fetch(band.dataset.scene)
-        .then(r => r.ok ? r.text() : Promise.reject(r.status))
-        .then(htmlFrag => {
-          pre.innerHTML = htmlFrag;
-          // conta colunas pela maior linha (sem contar as tags)
-          let cols = 0;
-          htmlFrag.split('\n').forEach(line => {
-            const plain = line.replace(/<[^>]*>/g, '');
-            if (plain.length > cols) cols = plain.length;
-          });
-          pre.dataset.cols = cols;
-          fit(pre);
-          band.classList.add('loaded');
-        })
-        .catch(() => { band.style.display = 'none'; });   // falha silenciosa
-    });
-  }, { rootMargin: '300px 0px' });
-
-  bands.forEach(b => loadObserver.observe(b));
-  window.addEventListener('resize', fitAll, { passive: true });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
-})();

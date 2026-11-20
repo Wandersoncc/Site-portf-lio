@@ -7,7 +7,7 @@
   <meta name="description" content="Portfólio de um estudante de Ciência da Computação em forma de jornada. Estética medieval de fantasia, ASCII art e trilha sonora." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=MedievalSharp&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Uncial+Antiqua&family=MedievalSharp&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -68,22 +68,14 @@
   <section id="estrada" class="chapter chapter-hero">
 
     <div class="hero-inner">
-      <h1 class="hero-title" aria-label="A Jornada">
-        <div class="ascii-wrap">
-          <pre class="ascii art-title" id="heroTitle" aria-hidden="true"> █████╗          ██╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗  █████╗ 
-██╔══██╗         ██║██╔═══██╗██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
-███████║         ██║██║   ██║██████╔╝██╔██╗ ██║███████║██║  ██║███████║
-██╔══██║    ██   ██║██║   ██║██╔══██╗██║╚██╗██║██╔══██║██║  ██║██╔══██║
-██║  ██║    ╚█████╔╝╚██████╔╝██║  ██║██║ ╚████║██║  ██║██████╔╝██║  ██║
-╚═╝  ╚═╝     ╚════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝</pre>
-        </div>
-      </h1>
+      <p class="hero-pretitle">✶ ⟡ ✶</p>
+      <h1 class="hero-title title-fantasy">A Jornada</h1>
       <p class="hero-kicker">de um estudante de Ciência da Computação</p>
       <p class="hero-sub">
         O que vês adiante não é um currículo — é uma <strong>estrada</strong>.
         <span class="typed" id="typed"></span>
       </p>
-      <a href="#limiar" class="btn btn-primary">Despertar o Dragão ⤓</a>
+      <a href="#limiar" class="btn btn-primary">Começar a Jornada ⤓</a>
     </div>
 
     <div class="scroll-hint" aria-hidden="true">
@@ -92,16 +84,11 @@
     </div>
   </section>
 
-  <!-- Painel de cena: montanhas (largura total, colorido) -->
-  <div class="scene-band" data-scene="scenes/mountain.html" aria-hidden="true">
-    <pre class="ascii-scene"></pre>
-  </div>
-
   <!-- ============ CAP. I · O LIMIAR (sobre) ============ -->
   <section id="limiar" class="chapter">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo I</span>
-      <h2 class="chapter-title">O Limiar</h2>
+      <h2 class="chapter-title title-fantasy">O Limiar</h2>
       <p class="chapter-motto">Toda grande jornada começa com um único passo.</p>
     </div>
 
@@ -127,16 +114,11 @@
     </div>
   </section>
 
-  <!-- Painel de cena: vila medieval (largura total, colorido) -->
-  <div class="scene-band" data-scene="scenes/village.html" aria-hidden="true">
-    <pre class="ascii-scene"></pre>
-  </div>
-
   <!-- ============ CAP. II · A GRANDE DESCIDA (jornada) ============ -->
   <section id="descida" class="chapter chapter-dark">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo II</span>
-      <h2 class="chapter-title">A Grande Descida</h2>
+      <h2 class="chapter-title title-fantasy">A Grande Descida</h2>
       <p class="chapter-motto">Fundo cavei a caverna do conhecimento.</p>
     </div>
 
@@ -176,17 +158,11 @@
     </ol>
   </section>
 
-  <!-- Painel de cena: dragão (largura total, colorido) -->
-  <div class="scene-band scene-band-dragon" data-scene="scenes/dragon.html" aria-hidden="true">
-    <pre class="ascii-scene"></pre>
-    <span class="scene-caption">⚔ aqui habita o dragão ⚔</span>
-  </div>
-
   <!-- ============ CAP. III · O ARSENAL (projetos) ============ -->
   <section id="arsenal" class="chapter">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo III</span>
-      <h2 class="chapter-title">O Arsenal</h2>
+      <h2 class="chapter-title title-fantasy">O Arsenal</h2>
       <p class="chapter-motto">Relíquias forjadas na bigorna do código.</p>
     </div>
     <p class="chapter-intro">Troque estas relíquias de exemplo pelos teus próprios tesouros.</p>
@@ -197,20 +173,7 @@
         <div class="relic-inner">
           <div class="relic-face relic-front">
             <div class="relic-rarity rarity-common">⚙ comum</div>
-            <div class="ascii-wrap">
-              <pre class="relic-art art-relic-shield" aria-hidden="true">   .-=======-.
-  (___________)
-  |\         /|
-  | \  /^\  / |
-  |  \ |·| /  |
-  |   \|·|/   |
-  |    \·/    |
-   \    V    /
-    \       /
-     \_____/
-       \ /
-        V</pre>
-            </div>
+            <div class="relic-glyph">🛡️</div>
             <h3>Primeiro Artefato</h3>
             <span class="relic-cta">virar ⟳</span>
           </div>
@@ -227,19 +190,7 @@
         <div class="relic-inner">
           <div class="relic-face relic-front">
             <div class="relic-rarity rarity-rare">◆ raro</div>
-            <div class="ascii-wrap">
-              <pre class="relic-art art-relic-tome" aria-hidden="true">      ______
-   .-'      '-.
-  /   .----.   \
- |   / ·  · \   |
- |  |  ·  ·  |  |
- |  |  ✶  ✶  |  |
- |   \ ·  · /   |
-  \   '----'   /
-   '-.______.-'
-   |__________|
-   '==========' </pre>
-            </div>
+            <div class="relic-glyph">📜</div>
             <h3>Segundo Artefato</h3>
             <span class="relic-cta">virar ⟳</span>
           </div>
@@ -256,18 +207,7 @@
         <div class="relic-inner">
           <div class="relic-face relic-front">
             <div class="relic-rarity rarity-legendary">★ lendário</div>
-            <div class="ascii-wrap">
-              <pre class="relic-art art-relic-crown" aria-hidden="true">  \   /\   /
-   \ /  \ /
- .-·V·--·V·-.
- |  ·    ·  |
- | ◇  ◇  ◇  |
- |__________|
-  \        /
-   '-.__.-'
-    |····|
-    '----'</pre>
-            </div>
+            <div class="relic-glyph">👑</div>
             <h3>Terceiro Artefato</h3>
             <span class="relic-cta">virar ⟳</span>
           </div>
@@ -286,7 +226,7 @@
   <section id="bosque" class="chapter chapter-glade">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo IV</span>
-      <h2 class="chapter-title">O Bosque dos Saberes</h2>
+      <h2 class="chapter-title title-fantasy">O Bosque dos Saberes</h2>
       <p class="chapter-motto">Onde cada habilidade floresce como uma árvore.</p>
     </div>
 
@@ -304,27 +244,11 @@
   <section id="portao" class="chapter chapter-dark">
     <div class="chapter-banner">
       <span class="chapter-no">Capítulo V · Fim da estrada</span>
-      <h2 class="chapter-title">O Grande Portão</h2>
+      <h2 class="chapter-title title-fantasy">O Grande Portão</h2>
       <p class="chapter-motto">Toda jornada termina onde outra começa. Deixa o teu recado.</p>
     </div>
 
-    <div class="ascii-wrap">
-      <pre class="ascii art-gate-big" aria-hidden="true">      ╔════╗                            ╔════╗
-      ║▓▓▓▓║        .  '  *  .          ║▓▓▓▓║
-      ╠════╣      *   ╔══════╗   .       ╠════╣
-   ╔══╩════╩══╗      ║▒▒▒▒▒▒║      ╔══╩════╩══╗
-   ║▓▓██▓▓██▓▓║    ╔═╩══════╩═╗    ║▓▓██▓▓██▓▓║
-   ║▓██▓▓▓▓██▓║    ║▓▓██▓▓██▓▓║    ║▓██▓▓▓▓██▓║
-   ╠══════════╣    ║▓██▓▓▓▓██▓║    ╠══════════╣
-   ║░░░░░░░░░░║    ╠══════════╣    ║░░░░░░░░░░║
-   ║░▓░▓░▓░▓░░║    ║░░░████░░░║    ║░▓░▓░▓░▓░░║
-   ║▓▓▓▓▓▓▓▓▓▓║    ║░░▓█▓▓█▓░░║    ║▓▓▓▓▓▓▓▓▓▓║
-═══╩══════════╩════╩▓▓█▓▓▓▓█▓▓╩════╩══════════╩═══
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▓╬╬╬╬╬╬╬╬▓█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
-░░░░░░░░░░░░░░░░░░█▓▓╬╬╬╬╬╬╬╬╬╬▓█░░░░░░░░░░░░░░░░░
-▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▓╬╬╬╬╬╬╬╬╬╬▓█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒</pre>
-    </div>
+    <div class="glyph-divider" aria-hidden="true">⚜ ━━━◆━━━ ⚜</div>
 
     <form class="contact-form" id="contactForm" novalidate>
       <div class="field">
@@ -353,7 +277,7 @@
   <footer class="footer">
     <p class="footer-quote">“A estrada segue sempre adiante, para longe da porta onde começou.”</p>
     <p>Forjado em código &amp; café · <span id="year"></span></p>
-    <p class="credits">Trilha: <em>luis_humanoide</em> &amp; <em>geoffharvey</em> (Pixabay) · ASCII art: acervo da comunidade (asciiart.eu), castelo por Volker Hellmich</p>
+    <p class="credits">Trilha sonora: <em>luis_humanoide</em> &amp; <em>geoffharvey</em> (Pixabay)</p>
   </footer>
 
   <!-- Botão voltar ao topo -->
