@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Protótipo · Hero ilustrado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --gold:#e6c073; --gold-deep:#c99a3f; --cream:#fbf4e6;
+    --ink:#2b3a44;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Cormorant Garamond',Georgia,serif;color:#fff;background:#0d1b26;overflow-x:hidden}
+
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+
+  /* ilustração de fundo com leve zoom lento (Ken Burns) */
+  .hero-bg{position:absolute;inset:0;background:url(img/hero.jpg) center/cover no-repeat;animation:drift 26s ease-in-out infinite alternate;transform-origin:center}
+  @keyframes drift{from{transform:scale(1.05)}to{transform:scale(1.14) translateY(-10px)}}
+
+  /* scrims: clareia o topo p/ nav, escurece a base p/ legibilidade do texto */
+  .scrim{position:absolute;inset:0}
+  .scrim-top{background:linear-gradient(180deg,rgba(10,20,30,.45),transparent 22%)}
+  .scrim-bottom{background:linear-gradient(0deg,rgba(8,16,24,.82),rgba(8,16,24,.25) 42%,transparent 70%)}
+  .scrim-glow{background:radial-gradient(60% 45% at 50% 70%,rgba(255,220,150,.18),transparent 70%)}
+
+  /* nav minimalista */
+  nav{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:22px 32px;font-family:'Cinzel',serif}
+  .brand{font-size:.95rem;letter-spacing:.25em;color:var(--gold);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .links{display:flex;gap:30px}
+  .links a{color:rgba(255,255,255,.88);text-decoration:none;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;position:relative;transition:color .3s}
+  .links a:hover{color:var(--gold)}
+  .links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--gold);transition:width .3s}
+  .links a:hover::after{width:100%}
+
+  /* conteúdo do hero */
+  .inner{position:relative;z-index:4;padding:0 24px;max-width:900px;transform:translateY(6vh)}
+  .eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:26px;opacity:0;animation:rise .9s .2s forwards}
+  .title{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.8rem,8vw,6rem);line-height:1.02;letter-spacing:.02em;
+    background:linear-gradient(180deg,#fff7e6 0%,#f0d79a 42%,var(--gold) 72%,var(--gold-deep) 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+    text-shadow:0 2px 30px rgba(0,0,0,.35);filter:drop-shadow(0 3px 10px rgba(0,0,0,.4));
+    opacity:0;animation:rise 1s .35s forwards}
+  .rule{display:flex;align-items:center;justify-content:center;gap:16px;margin:22px auto 24px;max-width:360px;opacity:0;animation:rise 1s .5s forwards}
+  .rule span{height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .rule i{color:var(--gold);font-style:normal}
+  .sub{font-size:clamp(1.05rem,2.4vw,1.5rem);font-style:italic;color:rgba(255,255,255,.92);letter-spacing:.01em;opacity:0;animation:rise 1s .6s forwards}
+  .lede{margin:14px auto 0;max-width:560px;font-size:1.05rem;color:rgba(255,255,255,.8);opacity:0;animation:rise 1s .7s forwards}
+  .cta{margin-top:40px;display:inline-block;font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:#1c140a;
+    background:linear-gradient(180deg,#f3d594,var(--gold));padding:15px 38px;border-radius:40px;text-decoration:none;
+    box-shadow:0 10px 30px rgba(201,154,63,.4);transition:transform .25s,box-shadow .25s;opacity:0;animation:rise 1s .85s forwards}
+  .cta:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(201,154,63,.55)}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+  .scroll{position:absolute;bottom:26px;left:0;right:0;z-index:4;text-align:center;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  .scroll span{display:block;margin-top:8px;animation:bob 2s ease-in-out infinite;color:var(--gold)}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+
+  /* partículas de luz */
+  canvas#motes{position:absolute;inset:0;z-index:3;pointer-events:none}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="scrim scrim-glow"></div>
+    <div class="scrim scrim-top"></div>
+    <div class="scrim scrim-bottom"></div>
+    <canvas id="motes"></canvas>
+
+    <nav>
+      <div class="brand">W · M</div>
+      <div class="links">
+        <a href="#">Obras</a><a href="#">Jornada</a><a href="#">Ofício</a><a href="#">Contato</a>
+      </div>
+    </nav>
+
+    <div class="inner">
+      <p class="eyebrow">Anno · Portfólio · MMXXVI</p>
+      <h1 class="title">Wanderson</h1>
+      <div class="rule"><span></span><i>❖</i><span></span></div>
+      <p class="sub">Construtor de mundos digitais · Ciência da Computação</p>
+      <p class="lede">Interfaces forjadas com cuidado de artesão — tipografia, ritmo e atmosfera, como páginas de um manuscrito iluminado.</p>
+      <a class="cta" href="#">Começar a jornada</a>
+    </div>
+
+    <div class="scroll">role para descobrir<span>⌄</span></div>
+  </section>
+
+<script>
+  // partículas de luz suaves
+  const c = document.getElementById('motes'), x = c.getContext('2d');
+  let w,h,ps;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight;ps=Array.from({length:Math.min(60,w/26|0)},spawn)}
+  function spawn(){return{x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+.6,vy:-(Math.random()*.4+.1),vx:(Math.random()-.5)*.3,a:Math.random()*.5+.2,t:Math.random()*6}}
+  function tick(){x.clearRect(0,0,w,h);for(const p of ps){p.y+=p.vy;p.x+=p.vx+Math.sin(p.y*.01)*.2;p.t+=.02;if(p.y<-10){p.y=h+10;p.x=Math.random()*w}
+    const a=(p.a+Math.sin(p.t)*.2).toFixed(2);x.beginPath();x.fillStyle='rgba(255,236,190,'+a+')';x.shadowBlur=8;x.shadowColor='rgba(255,236,190,.8)';x.arc(p.x,p.y,p.r,0,7);x.fill()}x.shadowBlur=0;requestAnimationFrame(tick)}
+  if(!reduce){addEventListener('resize',resize);resize();tick()}else{c.style.display='none'}
+</script>
+</body>
+</html>
